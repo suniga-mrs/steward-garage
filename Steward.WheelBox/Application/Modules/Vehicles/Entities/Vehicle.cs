@@ -1,27 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Steward.WheelBox.Application.Shared.Models;
+using Steward.WheelBox.Core.Helpers;
 
 namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
 {
     public class Vehicle : BaseAuditableEntity
     {
-        public Vehicle()
-        {
-
-        }
-
         public Vehicle(string make, string model, short year, string plateNo, string chassisNo, string engineNo)
         {
-            Make = make.ToUpper().Trim();
-            Model = model.ToUpper().Trim();
-            Year = year;
-            PlateNo = plateNo.Trim();
-            NormalizedPlateNo = plateNo.ToUpper().Trim();
-            ChassisNo = chassisNo.Trim();
-            NormalizedChassisNo = chassisNo.ToUpper().Trim();
-            EngineNo = engineNo.Trim();
-            NormalizedEngineNo = engineNo.ToUpper().Trim();
+            AssignValues(make, model, year, plateNo, chassisNo, engineNo);
         }
 
         public int VehicleId { get; }
@@ -34,7 +22,25 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
         public string ChassisNo { get; set; } = string.Empty;
         public string NormalizedChassisNo { get; private set; } = string.Empty;
         public string EngineNo { get; set; } = string.Empty;
-        public string NormalizedEngineNo { get; } = string.Empty;
+        public string NormalizedEngineNo { get; private set; } = string.Empty;
+
+        public void UpdateEntity(string make, string model, short year, string plateNo, string chassisNo, string engineNo)
+        {
+            AssignValues(make, model, year, plateNo, chassisNo, engineNo);
+        }
+
+        private void AssignValues(string make, string model, short year, string plateNo, string chassisNo, string engineNo)
+        {
+            Make = make.ToUpper().Trim();
+            Model = model.ToUpper().Trim();
+            Year = year;
+            PlateNo = plateNo.Trim();
+            ChassisNo = chassisNo.Trim();
+            EngineNo = engineNo.Trim();
+            NormalizedPlateNo = Utility.NormalizeValue(plateNo);
+            NormalizedChassisNo = Utility.NormalizeValue(chassisNo);
+            NormalizedEngineNo = Utility.NormalizeValue(engineNo);
+        }
         
     }
 

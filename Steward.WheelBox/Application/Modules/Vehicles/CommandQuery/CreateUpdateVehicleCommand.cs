@@ -8,7 +8,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
 {
     public class CreateUpdateVehicleCommand : IRequest<VehicleDTO>
     {
-        public int VehicleID { get; set; } = 0;
+        public int VehicleId { get; set; } = 0;
         public string Make { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
         public Int16 Year { get; set; } = 0;
@@ -48,7 +48,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
 
                 VehicleDTO vehicle;
 
-                if (request.VehicleID != 0)
+                if (request.VehicleId != 0)
                 {
                     vehicle = await _vehicleService.UpdateVehicle(request, cancellationToken);
                 }

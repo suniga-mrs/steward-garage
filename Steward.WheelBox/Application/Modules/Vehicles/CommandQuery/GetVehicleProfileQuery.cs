@@ -7,7 +7,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
 {
     public class GetVehicleProfileQuery : IRequest<VehicleDTO>
     {
-        public int VehicleID { get; set; } = 0;
+        public int VehicleId { get; set; } = 0;
     }
 
     public class GetVehicleProfileQueryHandler : IRequestHandler<GetVehicleProfileQuery, VehicleDTO>
@@ -23,7 +23,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
         public async Task<VehicleDTO> Handle(GetVehicleProfileQuery request, CancellationToken cancellationToken = default)
         {
             var entity = await _context.Vehicles
-                 .FindAsync(new object[] { request.VehicleID }, cancellationToken);
+                 .FindAsync(new object[] { request.VehicleId }, cancellationToken);
 
             if (entity == null)
             {

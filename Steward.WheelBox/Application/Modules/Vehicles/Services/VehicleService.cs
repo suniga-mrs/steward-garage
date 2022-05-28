@@ -4,6 +4,7 @@ using Steward.WheelBox.Application.Modules.Vehicles.CommandQuery;
 using Steward.WheelBox.Application.Modules.Vehicles.DTO;
 using Steward.WheelBox.Application.Modules.Vehicles.Entities;
 using Steward.WheelBox.Application.Modules.Vehicles.Interfaces;
+using Steward.WheelBox.Core.Helpers;
 
 namespace Steward.WheelBox.Application.Modules.Vehicles.Services
 {
@@ -40,18 +41,22 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Services
         public async Task<VehicleDTO> UpdateVehicle(CreateUpdateVehicleCommand request, CancellationToken ct = default)
         {
 
-            var entityVehicle = await _context.Vehicles.FindAsync(new object[] { request.VehicleID }, ct);
+            var entityVehicle = await _context.Vehicles.FindAsync(new object[] { request.VehicleId }, ct);
             if (entityVehicle == null)
             {
                 throw new KeyNotFoundException("Vehicle not found");
             }
 
-            entityVehicle.Make = string.IsNullOrEmpty(request.Make) ? entityVehicle.Make : request.Make;
-            entityVehicle.Model = string.IsNullOrEmpty(request.Model) ? entityVehicle.Model : request.Model;
-            entityVehicle.Year = request.Year != 0 ? entityVehicle.Year : request.Year;
-            entityVehicle.PlateNo = string.IsNullOrEmpty(request.PlateNo) ? entityVehicle.PlateNo : request.PlateNo;
-            entityVehicle.ChassisNo = string.IsNullOrEmpty(request.ChassisNo) ? entityVehicle.ChassisNo : request.ChassisNo;
-            entityVehicle.EngineNo = string.IsNullOrEmpty(request.EngineNo) ? entityVehicle.EngineNo : request.EngineNo;
+            entityVehicle.UpdateEntity(
+
+                make: string.IsNullOrEmpty(request.Make) ? entityVehicle.Make : request.Make,
+                model: string.IsNullOrEmpty(request.Model) ? entityVehicle.Model : request.Model,
+                year: request.Year != 0 ? entityVehicle.Year : request.Year,
+                plateNo: string.IsNullOrEmpty(request.PlateNo) ? entityVehicle.PlateNo : request.PlateNo,
+                chassisNo: string.IsNullOrEmpty(request.ChassisNo) ? entityVehicle.ChassisNo : request.ChassisNo,
+                engineNo: string.IsNullOrEmpty(request.EngineNo) ? entityVehicle.EngineNo : request.EngineNo
+            );
+
 
             await _context.SaveChangesAsync(ct);
 

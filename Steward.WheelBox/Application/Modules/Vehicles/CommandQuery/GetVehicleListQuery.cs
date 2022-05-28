@@ -34,9 +34,10 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
 
             var _make = request.Make.Trim().ToUpper();
             var _model = request.Model.Trim().ToUpper();
-            var _plateNo = request.PlateNo.Trim();
+            var _plateNo = request.PlateNo.Trim().ToUpper();
             var _chassisNo = request.ChassisNo.Trim().ToUpper();
             var _engineNo = request.EngineNo.Trim().ToUpper();
+            var _year = request.Year;
 
             var queryResult = await _context.Vehicles
                 .Where(o =>
@@ -49,6 +50,26 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
                     (
                         (String.IsNullOrEmpty(_model) && o.VehicleId != 0)
                         || (!string.IsNullOrEmpty(_model) && EF.Functions.Like(o.Model, $"%{_model}%"))
+                    )
+                    &&
+                    (
+                        (String.IsNullOrEmpty(_plateNo) && o.VehicleId != 0)
+                        || (!string.IsNullOrEmpty(_model) && EF.Functions.Like(o.NormalizedPlateNo, $"%{_plateNo}%"))
+                    )
+                    &&
+                    (
+                        (String.IsNullOrEmpty(_chassisNo) && o.VehicleId != 0)
+                        || (!string.IsNullOrEmpty(_model) && EF.Functions.Like(o.NormalizedChassisNo, $"%{_chassisNo}%"))
+                    )
+                    &&
+                    (
+                        (String.IsNullOrEmpty(_engineNo) && o.VehicleId != 0)
+                        || (!string.IsNullOrEmpty(_model) && EF.Functions.Like(o.NormalizedEngineNo, $"%{_engineNo}%"))
+                    )
+                    &&
+                    (
+                        ( _year == 0 && o.VehicleId != 0)
+                        || (_year != 0 && o.Year == _year)
                     )
                 )
                 .ToPaginatedQueryResultAsync<Vehicle, VehicleDTO>(_mapper.ConfigurationProvider, request.Page, request.PerPage);

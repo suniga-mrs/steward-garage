@@ -14,7 +14,6 @@ namespace Steward.WheelBox.Infrastructure.Persistence
 
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        private readonly IMediator _mediator;
         private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
         public ApplicationDbContext(
             DbContextOptions<ApplicationDbContext> options,

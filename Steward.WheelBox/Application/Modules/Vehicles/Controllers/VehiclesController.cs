@@ -26,26 +26,32 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Controllers
             _sender = sender;
         }
 
-        // GET: api/Vehicles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles([FromQuery] GetVehicleListQuery request)
+        public async Task<ActionResult<AppResponse<IEnumerable<VehicleDTO>>>> GetVehicles([FromQuery] GetVehicleListQuery request)
         {
             var result = await _sender.Send(request);
             return Ok(new AppResponse<IEnumerable<VehicleDTO>>(result.Data, result.Pagination));
         }
 
         [HttpGet("profile")]
-        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicleProfile([FromQuery] GetVehicleProfileQuery request)
+        public async Task<ActionResult<AppResponse<VehicleDTO>>> GetVehicleProfile([FromQuery] GetVehicleProfileQuery request)
         {
             var result = await _sender.Send(request);
             return Ok(new AppResponse<VehicleDTO>(result));
         }
 
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<Vehicle>>> CreateUpdateVehicle([FromBody] CreateUpdateVehicleCommand command)
+        public async Task<ActionResult<AppResponse<VehicleDTO>>> CreateUpdateVehicle([FromBody] CreateUpdateVehicleCommand command)
         {
             var result = await _sender.Send(command);
             return Ok(new AppResponse<VehicleDTO>(result));
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<AppResponse<int>>> DeleteVehicle([FromQuery] DeleteVehicleCommand command)
+        {
+            var result = await _sender.Send(command);
+            return Ok(new AppResponse<int>(result));
         }
 
 
