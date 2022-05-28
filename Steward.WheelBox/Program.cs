@@ -27,13 +27,18 @@ namespace Steward.WheelBox
 
             services.AddCors(); 
 
-            services.AddControllers();
+            services.AddControllersWithViews();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
-      
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
+
+
 
             var app = builder.Build();
 
@@ -54,7 +59,18 @@ namespace Steward.WheelBox
 
             app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseAuthorization();            
+            app.UseAuthorization();    
+            
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (app.Environment.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer("https://localhost:4992/");
+                    //spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
 
             app.MapControllers();
 
