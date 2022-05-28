@@ -5,5 +5,7 @@
         public DateTime DateDeleted { get; set; } = DateTime.MinValue;
         public string? DeletedBy { get; set; } = string.Empty;
         public bool IsDeleted { get; set; } = false;
+
     }
+
 }

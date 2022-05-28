@@ -57,6 +57,8 @@ namespace Steward.WheelBox.Infrastructure.Persistence.Interceptors
                     entry.Entity.IsDeleted = true;
                     entry.Entity.DeletedBy = _currentUserService.UserGuid ?? "";
                     entry.Entity.DateDeleted = _dateTime.Now;
+
+                    entry.State = EntityState.Modified;
                 }
             }
 

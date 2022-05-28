@@ -45,6 +45,8 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
 
                 _context.Vehicles.Remove(entityVehicle);
 
+                await _context.SaveChangesAsync(cancellationToken);
+
                 await tx.CommitAsync();
 
                 return request.VehicleId;

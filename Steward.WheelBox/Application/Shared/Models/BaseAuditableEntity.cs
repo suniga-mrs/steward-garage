@@ -6,5 +6,9 @@
         public string? CreatedBy { get; set; }
         public DateTime DateLastModified { get; set; } = DateTime.MinValue;
         public string? LastModifiedBy { get; set; }
+
     }
+
+
+   
 }
