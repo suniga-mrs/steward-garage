@@ -36,16 +36,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
 
             try
             {
-                var entityVehicle = await _context.Vehicles.FindAsync(new object[] { request.VehicleId }, cancellationToken);
-                if (entityVehicle == null)
-                {
-                    throw new KeyNotFoundException("Vehicle not found");
-                }
-
-
-                _context.Vehicles.Remove(entityVehicle);
-
-                await _context.SaveChangesAsync(cancellationToken);
+                await _vehicleService.DeleteVehicle(request, cancellationToken);
 
                 await tx.CommitAsync();
 

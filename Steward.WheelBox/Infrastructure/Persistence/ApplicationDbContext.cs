@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Steward.WheelBox.Application.Shared.Interfaces;
-using Steward.WheelBox.Application.Shared.Models;
 using Steward.WheelBox.Application.Modules.Vehicles.Entities;
 using System.Data;
 using System.Reflection;
-using Steward.WheelBox.Application.Shared.Services;
 using Steward.WheelBox.Infrastructure.Persistence.Interceptors;
-using MediatR;
+using Steward.WheelBox.Application.Modules.DataReferences.Entities;
 
 namespace Steward.WheelBox.Infrastructure.Persistence
 {
@@ -27,6 +25,8 @@ namespace Steward.WheelBox.Infrastructure.Persistence
         public IDbConnection Connection => Database.GetDbConnection();
 
         public DbSet<Vehicle> Vehicles => Set<Vehicle>();
+        public DbSet<Unit> Units => Set<Unit>();
+        public DbSet<Driver> Drivers => Set<Driver>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

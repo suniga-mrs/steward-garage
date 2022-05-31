@@ -7,6 +7,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Interfaces
     {
         Task<VehicleDTO> CreateVehicle(CreateUpdateVehicleCommand request, CancellationToken ct);
         Task<VehicleDTO> UpdateVehicle(CreateUpdateVehicleCommand request, CancellationToken ct);
+        Task<int> DeleteVehicle(DeleteVehicleCommand request, CancellationToken ct);
         
 
     }

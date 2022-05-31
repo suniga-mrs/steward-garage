@@ -63,5 +63,21 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Services
             return _mapper.Map<VehicleDTO>(entityVehicle);
 
         }
+
+        public async Task<int> DeleteVehicle(DeleteVehicleCommand request, CancellationToken cancellationToken = default)
+        {
+            var entityVehicle = await _context.Vehicles.FindAsync(new object[] { request.VehicleId }, cancellationToken);
+            if (entityVehicle == null)
+            {
+                throw new KeyNotFoundException("Vehicle not found");
+            }
+
+
+            _context.Vehicles.Remove(entityVehicle);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return request.VehicleId;
+        }
     }
 }
