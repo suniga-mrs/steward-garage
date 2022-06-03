@@ -25,6 +25,8 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
         public string EngineNo { get; set; } = string.Empty;
         public string NormalizedEngineNo { get; private set; } = string.Empty;
 
+        public IList<GasLog> GasLog { get; } = null!;
+
         public void UpdateEntity(string make, string model, short year, string plateNo, string chassisNo, string engineNo)
         {
             AssignValues(make, model, year, plateNo, chassisNo, engineNo);
@@ -56,6 +58,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
             builder.Property(p => p.VehicleGuid).HasColumnName("vehicleguid");
             builder.Property(p => p.Make).HasColumnName("make");
             builder.Property(p => p.Model).HasColumnName("model");
+            builder.Property(p => p.Year).HasColumnName("year");
             builder.Property(p => p.PlateNo).HasColumnName("plateno");
             builder.Property(p => p.NormalizedPlateNo).HasColumnName("normalizedplateno");
             builder.Property(p => p.ChassisNo).HasColumnName("chassisno");
@@ -71,6 +74,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
             //Constraints and Default Value
             builder.Property(p => p.Make).HasMaxLength(50).HasDefaultValue("");
             builder.Property(p => p.Model).HasMaxLength(50).HasDefaultValue("");
+            builder.Property(p => p.Year).HasDefaultValue(0);
             builder.Property(p => p.PlateNo).HasMaxLength(100).HasDefaultValue("");
             builder.Property(p => p.ChassisNo).HasMaxLength(100).HasDefaultValue("");
             builder.Property(p => p.EngineNo).HasMaxLength(100).HasDefaultValue("");

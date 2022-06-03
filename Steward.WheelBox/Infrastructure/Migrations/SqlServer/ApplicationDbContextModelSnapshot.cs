@@ -224,6 +224,96 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                     b.ToTable("tblunits", (string)null);
                 });
 
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.GasLog", b =>
+                {
+                    b.Property<int>("DetNo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("detno");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetNo"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("createdby");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("datecreated");
+
+                    b.Property<DateTime>("DateDeleted")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("datedeleted");
+
+                    b.Property<DateTime>("DateLastModified")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("datelastmodified");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("deletedby");
+
+                    b.Property<decimal>("GasAmount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0.0m)
+                        .HasColumnName("gasamount");
+
+                    b.Property<int>("GasAmountUnitId")
+                        .HasColumnType("int")
+                        .HasColumnName("gasamountunitid");
+
+                    b.Property<decimal>("GasVolume")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0.0m)
+                        .HasColumnName("gasvolume");
+
+                    b.Property<int>("GasVolumeUnitId")
+                        .HasColumnType("int")
+                        .HasColumnName("gasvolumeunitid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("isdeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasColumnName("lastmodifiedby");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasDefaultValue("")
+                        .HasColumnName("remarks");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int")
+                        .HasColumnName("vehicleid");
+
+                    b.HasKey("DetNo");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("DetNo"));
+
+                    b.HasIndex("GasAmountUnitId");
+
+                    b.HasIndex("GasVolumeUnitId");
+
+                    b.HasIndex("VehicleId");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("VehicleId"), false);
+
+                    b.ToTable("tblgaslogs", (string)null);
+                });
+
             modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", b =>
                 {
                     b.Property<int>("VehicleId")
@@ -338,7 +428,10 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                         .HasDefaultValueSql("NEWID()");
 
                     b.Property<short>("Year")
-                        .HasColumnType("smallint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((short)0)
+                        .HasColumnName("year");
 
                     b.HasKey("VehicleId");
 
@@ -361,6 +454,45 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                     SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("NormalizedPlateNo"), false);
 
                     b.ToTable("tblvehicles", (string)null);
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.GasLog", b =>
+                {
+                    b.HasOne("Steward.WheelBox.Application.Modules.DataReferences.Entities.Unit", "GasAmountUnit")
+                        .WithMany("GasAmountList")
+                        .HasForeignKey("GasAmountUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Steward.WheelBox.Application.Modules.DataReferences.Entities.Unit", "GasVolumeUnit")
+                        .WithMany("GasVolumeList")
+                        .HasForeignKey("GasVolumeUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", "Vehicle")
+                        .WithMany("GasLog")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GasAmountUnit");
+
+                    b.Navigation("GasVolumeUnit");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.DataReferences.Entities.Unit", b =>
+                {
+                    b.Navigation("GasAmountList");
+
+                    b.Navigation("GasVolumeList");
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", b =>
+                {
+                    b.Navigation("GasLog");
                 });
 #pragma warning restore 612, 618
         }

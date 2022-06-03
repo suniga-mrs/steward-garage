@@ -36,7 +36,7 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
             FirstName = firstName.ToUpper();
             LastName = lastName.ToUpper();
             MiddleName = middleName.ToUpper();
-            FullName = ($"{LastName}, {FirstName} {MiddleName}").ToUpper();
+            FullName = ($"{LastName}, {FirstName} {MiddleName} {Suffix}").ToUpper();
             Suffix = suffix.ToUpper();
             LicenseNo = licenseNo.ToUpper();
             Birthdate = birthDate ?? DateTime.MinValue;

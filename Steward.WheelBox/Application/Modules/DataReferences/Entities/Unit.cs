@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Steward.WheelBox.Application.Modules.Vehicles.Entities;
 using Steward.WheelBox.Application.Shared.Models;
 
 namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
@@ -10,6 +11,10 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
         public string Name { get; set; } = string.Empty;
         public string Prefix { get; set; } = string.Empty;
         public string Suffix { get; set; } = string.Empty;
+
+        public virtual IList<GasLog> GasAmountList { get; } = null!;
+        public virtual IList<GasLog> GasVolumeList { get; } = null!;
+
 
         public Unit(string name = "", string prefix = "", string suffix = "")
         {

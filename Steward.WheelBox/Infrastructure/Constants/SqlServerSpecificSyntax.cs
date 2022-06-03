@@ -2,6 +2,7 @@
 {
     public class SqlServerSpecificSyntax
     {
-        public static string UniqueId = "NEWID()";
+        public const string UniqueId = "NEWID()";
+        public static string DecimalColumn(int maxDigits = 18, int decimalPlaces = 2) => $"decimal({maxDigits},{decimalPlaces})";
     }
 }
