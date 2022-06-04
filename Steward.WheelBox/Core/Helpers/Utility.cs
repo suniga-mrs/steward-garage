@@ -8,5 +8,17 @@
             return value.Trim().ToUpper();
         }
 
+        public static DateTime TryParse(this DateTime? dateTime)
+        {
+            if (dateTime.HasValue)
+            {
+                return dateTime.GetValueOrDefault();
+            }
+            else
+            {
+                return DateTime.MinValue;
+            }
+        }
+
     }
 }

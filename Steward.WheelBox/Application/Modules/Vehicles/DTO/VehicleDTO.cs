@@ -1,9 +1,10 @@
 ﻿using Steward.WheelBox.Application.Shared.Mappings;
 using Steward.WheelBox.Application.Modules.Vehicles.Entities;
+using Steward.WheelBox.Application.Shared.Models;
 
 namespace Steward.WheelBox.Application.Modules.Vehicles.DTO
 {
-    public class VehicleDTO : IMapFrom<Vehicle>
+    public class VehicleDTO : BaseAuditableEntityDTO, IMapFrom<Vehicle>
     {
         public int VehicleId { get; set; }
         public Guid VehicleGuid { get; set; }

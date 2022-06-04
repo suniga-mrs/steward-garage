@@ -15,8 +15,8 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
         public string FullName { get; private set; } = string.Empty;
         public string Suffix { get; set; } = string.Empty;
         public string LicenseNo { get; set; } = string.Empty;
-        public DateTime Birthdate { get; set; } = DateTime.MinValue;
-        public DateTime LicenseExpiry { get; set; } = DateTime.MinValue;
+        public DateTime? Birthdate { get; set; } = DateTime.MinValue;
+        public DateTime? LicenseExpiry { get; set; } = DateTime.MinValue;
 
         public Driver()
         {
@@ -36,15 +36,20 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
             FirstName = firstName.ToUpper();
             LastName = lastName.ToUpper();
             MiddleName = middleName.ToUpper();
-            FullName = ($"{LastName}, {FirstName} {MiddleName} {Suffix}").ToUpper();
+            FullName = JoinName(firstName, lastName, middleName, suffix);
             Suffix = suffix.ToUpper();
             LicenseNo = licenseNo.ToUpper();
-            Birthdate = birthDate ?? DateTime.MinValue;
-            LicenseExpiry = licenseExpiry ?? DateTime.MinValue;
+            Birthdate = birthDate;
+            LicenseExpiry = licenseExpiry;
+        }
+
+        public static string JoinName(string firstName = "", string lastName= "", string middleName = "", string suffix = "")
+        {
+            return ($"{lastName}, {firstName} {middleName} {suffix}").ToUpper();
         }
 
         public void UpdateEntity(string firstName, string lastName, string middleName,
-            string suffix, string licenseNo, DateTime birthDate, DateTime licenseExpiry)
+            string suffix, string licenseNo, DateTime? birthDate, DateTime? licenseExpiry)
         {
             AssignValues(firstName, lastName, middleName, suffix, licenseNo, birthDate, licenseExpiry);
         }

@@ -17,17 +17,29 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.CommandQuery
         public string EngineNo { get; set; } = string.Empty;
     }
 
-    //public class CreateCourseCommandValidator : AbstractValidator<CreateUpdateVehicleCommand>
-    //{
+    public class CreateUpdateVehicleCommandValidator : AbstractValidator<CreateUpdateVehicleCommand>
+    {
 
-    //    public CreateCourseCommandValidator()
-    //    {
+        public CreateUpdateVehicleCommandValidator()
+        {
 
-    //        RuleFor(x => x.Name)
-    //            .NotEmpty().WithMessage("Title is required");
-    //    }
+            RuleFor(x => x.Make)
+                .MaximumLength(50).WithMessage("Make exceeds max length of 50.");
 
-    //}
+            RuleFor(x => x.Model)
+                .MaximumLength(50).WithMessage("Model exceeds max length of 50.");
+
+            RuleFor(x => x.PlateNo)
+                .MaximumLength(100).WithMessage("Plate No. exceeds max length of 100.");
+
+            RuleFor(x => x.ChassisNo)
+                .MaximumLength(100).WithMessage("Chassis No. exceeds max length of 100.");
+
+            RuleFor(x => x.EngineNo)
+                .MaximumLength(100).WithMessage("Engine No. exceeds max length of 100.");
+        }
+
+    }
 
     public class CreateUpdateVehicleCommandHandler : IRequestHandler<CreateUpdateVehicleCommand, VehicleDTO>
     {

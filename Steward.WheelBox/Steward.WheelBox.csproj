@@ -28,8 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Modules\DataReferences\Controllers\" />
-    <Folder Include="Application\Modules\DataReferences\Services\" />
     <Folder Include="Core\Exceptions\" />
     <Folder Include="Infrastructure\Migrations\" />
   </ItemGroup>
