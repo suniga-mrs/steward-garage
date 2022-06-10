@@ -1,27 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Steward.WheelBox.Application.Shared.Models
 {
-    public abstract class BaseAuditableEntity : BaseSoftDeleteEntity
+    public abstract class BaseAuditableEntity 
     {
 
-        [Column("datecreated")]
         public DateTime DateCreated { get; set; } = DateTime.MinValue;
 
-        [Column("createdby")]
-        [MaxLength(500)]
         public string CreatedBy { get; set; } = string.Empty;
 
-        [Column("datelastmodified")]
         public DateTime DateLastModified { get; set; } = DateTime.MinValue;
 
-        [Column("lastmodifiedby")]
-        [MaxLength(500)]
         public string LastModifiedBy { get; set; } = string.Empty;
 
+        public DateTime DateDeleted { get; set; } = DateTime.MinValue;
+
+        public string DeletedBy { get; set; } = string.Empty;
+
+        public bool IsDeleted { get; set; } = false;
+
     }
-
-
-   
+ 
 }

@@ -45,7 +45,7 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
 
         public static string JoinName(string firstName = "", string lastName= "", string middleName = "", string suffix = "")
         {
-            return ($"{lastName}, {firstName} {middleName} {suffix}").ToUpper();
+            return ($"{lastName}, {firstName} {middleName} {suffix}").ToUpper().Trim();
         }
 
         public void UpdateEntity(string firstName, string lastName, string middleName,
@@ -88,6 +88,16 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
             //Add Indexes
             builder.HasIndex(p => p.FullName).IsClustered(false);
             builder.HasIndex(p => p.LicenseNo).IsClustered(false);
+
+
+            //Base Auditable Entity Config
+            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.LastModifiedBy).HasColumnName("lastmodifiedby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.CreatedBy).HasColumnName("createdby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.DeletedBy).HasColumnName("deletedby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.IsDeleted).HasColumnName("isdeleted").HasDefaultValue(false);
 
 
         }

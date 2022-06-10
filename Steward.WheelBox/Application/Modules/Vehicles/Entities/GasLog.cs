@@ -8,18 +8,21 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
 {
     public class GasLog : BaseAuditableEntity
     {
-        public int DetNo { get; }
+        public int GasLogId { get; }
         public decimal GasAmount { get; set; }
         public decimal GasVolume { get; set; }
         public int VehicleId { get; set; }
         public int GasAmountUnitId { get; set; }
         public int GasVolumeUnitId { get; set; }
+        public int OdometerId { get; set; }
         public string Remarks { get; set; } = string.Empty;
+        public DateTime? LogDate { get; set; } = DateTime.MinValue;
 
 
         public virtual Vehicle Vehicle { get; set; } = null!;
         public virtual Unit GasAmountUnit { get; set; } = null!;
         public virtual Unit GasVolumeUnit { get; set; } = null!;
+        public virtual Odometer Odometer { get; set; } = null!;
 
         //TODO: Add location, gas brand
 
@@ -52,7 +55,7 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
         {
             //Change Table and Column Naming
             builder.ToTable("tblgaslogs");
-            builder.Property(p => p.DetNo).HasColumnName("detno");
+            builder.Property(p => p.GasLogId).HasColumnName("gaslogid");
             builder.Property(p => p.GasAmount).HasColumnName("gasamount");
             builder.Property(p => p.GasVolume).HasColumnName("gasvolume");
             builder.Property(p => p.VehicleId).HasColumnName("vehicleid");
@@ -61,10 +64,10 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
             builder.Property(p => p.Remarks).HasColumnName("remarks");
 
             //Keys
-            builder.HasKey(p => p.DetNo).IsClustered();
-            builder.HasOne(p => p.Vehicle).WithMany(p => p.GasLog).HasForeignKey(p=> p.VehicleId);
-            builder.HasOne(p => p.GasAmountUnit).WithMany(p => p.GasAmountList).HasForeignKey(p => p.GasAmountUnitId);
-            builder.HasOne(p => p.GasVolumeUnit).WithMany(p => p.GasVolumeList).HasForeignKey(p => p.GasVolumeUnitId);
+            builder.HasKey(p => p.GasLogId).IsClustered();
+            builder.HasOne(p => p.Vehicle).WithMany(p => p.GasLog).HasForeignKey(p => p.VehicleId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(p => p.GasAmountUnit).WithMany(p => p.GasAmountList).HasForeignKey(p => p.GasAmountUnitId).OnDelete(DeleteBehavior.ClientSetNull);
+            builder.HasOne(p => p.GasVolumeUnit).WithMany(p => p.GasVolumeList).HasForeignKey(p => p.GasVolumeUnitId).OnDelete(DeleteBehavior.ClientSetNull);
 
             //Constraints and Default Value
             builder.Property(p => p.VehicleId)
@@ -85,6 +88,17 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
 
             //Add Indexes
             builder.HasIndex(p => p.VehicleId).IsClustered(false);
+
+
+            //Base Auditable Entity Config
+            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.LastModifiedBy).HasColumnName("lastmodifiedby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.CreatedBy).HasColumnName("createdby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.DeletedBy).HasColumnName("deletedby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.IsDeleted).HasColumnName("isdeleted").HasDefaultValue(false);
+
 
         }
     }

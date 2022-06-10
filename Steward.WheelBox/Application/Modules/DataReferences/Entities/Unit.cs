@@ -67,6 +67,16 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
             //Add Indexes
             builder.HasIndex(p => p.Name).IsClustered(false);
 
+            //Base Auditable Entity Config
+            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.LastModifiedBy).HasColumnName("lastmodifiedby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.CreatedBy).HasColumnName("createdby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.DeletedBy).HasColumnName("deletedby").HasMaxLength(500).HasDefaultValue("");
+            builder.Property(p => p.IsDeleted).HasColumnName("isdeleted").HasDefaultValue(false);
+
+
         }
     }
 
