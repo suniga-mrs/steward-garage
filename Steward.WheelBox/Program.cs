@@ -33,10 +33,10 @@ namespace Steward.WheelBox
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/build";
-            });
+            //services.AddSpaStaticFiles(configuration =>
+            //{
+            //    configuration.RootPath = "ClientApp/build";
+            //});
 
 
 
@@ -61,16 +61,16 @@ namespace Steward.WheelBox
 
             app.UseAuthorization();    
             
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "ClientApp";
 
-                if (app.Environment.IsDevelopment())
-                {
-                    spa.UseProxyToSpaDevelopmentServer("https://localhost:4992/");
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+            //    if (app.Environment.IsDevelopment())
+            //    {
+            //        spa.UseProxyToSpaDevelopmentServer("https://localhost:4992/");
+            //        //spa.UseReactDevelopmentServer(npmScript: "start");
+            //    }
+            //});
 
             app.MapControllers();
 

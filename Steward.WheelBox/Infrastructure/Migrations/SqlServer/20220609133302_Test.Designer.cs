@@ -12,7 +12,7 @@ using Steward.WheelBox.Infrastructure.Persistence;
 namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220603130636_Test")]
+    [Migration("20220609133302_Test")]
     partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DriverId"), 1L, 1);
 
-                    b.Property<DateTime>("Birthdate")
+                    b.Property<DateTime?>("Birthdate")
                         .HasColumnType("datetime2")
                         .HasColumnName("birthdate");
 
@@ -101,7 +101,7 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                         .HasDefaultValue("")
                         .HasColumnName("lastname");
 
-                    b.Property<DateTime>("LicenseExpiry")
+                    b.Property<DateTime?>("LicenseExpiry")
                         .HasColumnType("datetime2")
                         .HasColumnName("licenseexpiry");
 
@@ -463,13 +463,11 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                     b.HasOne("Steward.WheelBox.Application.Modules.DataReferences.Entities.Unit", "GasAmountUnit")
                         .WithMany("GasAmountList")
                         .HasForeignKey("GasAmountUnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Steward.WheelBox.Application.Modules.DataReferences.Entities.Unit", "GasVolumeUnit")
                         .WithMany("GasVolumeList")
                         .HasForeignKey("GasVolumeUnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", "Vehicle")

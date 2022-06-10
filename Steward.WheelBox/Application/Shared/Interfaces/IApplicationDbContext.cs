@@ -15,6 +15,7 @@ namespace Steward.WheelBox.Application.Shared.Interfaces
         DbSet<Vehicle> Vehicles { get; }
         DbSet<Unit> Units { get; }
         DbSet<Driver> Drivers { get; }
+        DbSet<GasLog> GasLogs { get; }
 
 
         Task<int> SaveChangesAsync(CancellationToken ct);

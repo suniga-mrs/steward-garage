@@ -22,8 +22,8 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                     fullname = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false, defaultValue: ""),
                     suffix = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, defaultValue: ""),
                     licenseno = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false, defaultValue: ""),
-                    birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    licenseexpiry = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    birthdate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    licenseexpiry = table.Column<DateTime>(type: "datetime2", nullable: true),
                     datedeleted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     deletedby = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     isdeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -123,14 +123,12 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                         name: "FK_tblgaslogs_tblunits_gasamountunitid",
                         column: x => x.gasamountunitid,
                         principalTable: "tblunits",
-                        principalColumn: "unitid",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "unitid");
                     table.ForeignKey(
                         name: "FK_tblgaslogs_tblunits_gasvolumeunitid",
                         column: x => x.gasvolumeunitid,
                         principalTable: "tblunits",
-                        principalColumn: "unitid",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "unitid");
                     table.ForeignKey(
                         name: "FK_tblgaslogs_tblvehicles_vehicleid",
                         column: x => x.vehicleid,
