@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
+using Steward.WheelBox.Application.Modules.DataReferences.Interfaces;
+using Steward.WheelBox.Application.Modules.DataReferences.Services;
 using Steward.WheelBox.Application.Modules.Vehicles.Interfaces;
 using Steward.WheelBox.Application.Modules.Vehicles.Services;
 using Steward.WheelBox.Application.Shared.Interfaces;
@@ -22,7 +24,9 @@ namespace Steward.WheelBox.Application
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IVehicleService, VehicleService>();
-       
+            services.AddTransient<IDriverService, DriverService>();
+            services.AddTransient<IUnitService, UnitService>();
+
 
 
             return services;

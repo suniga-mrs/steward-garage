@@ -6,12 +6,12 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.DTO
 {
     public class DriverDTO : BaseAuditableEntityDTO, IMapFrom<Driver>
     {
-        public int DriverId { get; }
-        public Guid DriverGuid { get; }
+        public int DriverId { get; set; }
+        public Guid DriverGuid { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
-        public string FullName { get; private set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
         public string Suffix { get; set; } = string.Empty;
         public string LicenseNo { get; set; } = string.Empty;
         public DateTime Birthdate { get; set; } = DateTime.MinValue;

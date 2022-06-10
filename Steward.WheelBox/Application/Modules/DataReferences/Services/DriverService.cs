@@ -9,7 +9,7 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Services
 {
     public class DriverService : IDriverService
     {
-        private IApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
         public DriverService(IApplicationDbContext context, IMapper mapper)

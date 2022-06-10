@@ -6,7 +6,7 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.DTO
 {
     public class UnitDTO : BaseAuditableEntityDTO, IMapFrom<Unit>
     {
-        public int UnitId { get; }
+        public int UnitId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Prefix { get; set; } = string.Empty;
         public string Suffix { get; set; } = string.Empty;

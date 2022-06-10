@@ -19,21 +19,21 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<AppResponse<IEnumerable<UnitDTO>>>> GetVehicles([FromQuery] GetUnitListQuery request)
+        public async Task<ActionResult<AppResponse<IEnumerable<UnitDTO>>>> GetUnits([FromQuery] GetUnitListQuery request)
         {
             var result = await _sender.Send(request);
             return Ok(new AppResponse<IEnumerable<UnitDTO>>(result.Data, result.Pagination));
         }
 
         [HttpPost]
-        public async Task<ActionResult<AppResponse<UnitDTO>>> CreateUpdateVehicle([FromBody] CreateUpdateUnitCommand command)
+        public async Task<ActionResult<AppResponse<UnitDTO>>> CreateUpdateUnit([FromBody] CreateUpdateUnitCommand command)
         {
             var result = await _sender.Send(command);
             return Ok(new AppResponse<UnitDTO>(result));
         }
 
         [HttpDelete]
-        public async Task<ActionResult<AppResponse<int>>> DeleteVehicle([FromQuery] DeleteUnitCommand command)
+        public async Task<ActionResult<AppResponse<int>>> DeleteUnit([FromQuery] DeleteUnitCommand command)
         {
             var result = await _sender.Send(command);
             return Ok(new AppResponse<int>(result));
