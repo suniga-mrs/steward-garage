@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using MediatR;
-using Steward.Garage.Application.Modules.DataReferences.Interfaces;
+using Steward.Garage.Application.Modules.Drivers.Interfaces;
 using Steward.Garage.Application.Shared.Interfaces;
 
-namespace Steward.Garage.Application.Modules.DataReferences.CommandQuery
+namespace Steward.Garage.Application.Modules.Drivers.CommandQuery
 {
     public class DeleteDriverCommand : IRequest<int>
     {

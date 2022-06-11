@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using MediatR;
-using Steward.Garage.Application.Modules.DataReferences.DTO;
-using Steward.Garage.Application.Modules.DataReferences.Interfaces;
+using Steward.Garage.Application.Modules.Drivers.DTO;
+using Steward.Garage.Application.Modules.Drivers.Interfaces;
 using Steward.Garage.Application.Shared.Interfaces;
 
-namespace Steward.Garage.Application.Modules.DataReferences.CommandQuery
+namespace Steward.Garage.Application.Modules.Drivers.CommandQuery
 {
     public class CreateUpdateDriverCommand : IRequest<DriverDTO>
     {
@@ -65,7 +65,7 @@ namespace Steward.Garage.Application.Modules.DataReferences.CommandQuery
             {
                 DriverDTO driver;
 
-                if(request.DriverId != 0)
+                if (request.DriverId != 0)
                 {
                     driver = await _driverService.UpdateDriver(request, cancellationToken);
                 }

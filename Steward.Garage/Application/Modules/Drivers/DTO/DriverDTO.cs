@@ -1,8 +1,8 @@
-﻿using Steward.Garage.Application.Modules.DataReferences.Entities;
+﻿using Steward.Garage.Application.Modules.Drivers.Entities;
 using Steward.Garage.Application.Shared.Mappings;
 using Steward.Garage.Application.Shared.Models;
 
-namespace Steward.Garage.Application.Modules.DataReferences.DTO
+namespace Steward.Garage.Application.Modules.Drivers.DTO
 {
     public class DriverDTO : BaseAuditableEntityDTO, IMapFrom<Driver>
     {

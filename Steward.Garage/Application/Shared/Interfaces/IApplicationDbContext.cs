@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Steward.Garage.Application.Modules.BusinessProviders.Entities;
 using Steward.Garage.Application.Modules.DataReferences.Entities;
+using Steward.Garage.Application.Modules.Drivers.Entities;
 using Steward.Garage.Application.Modules.Vehicles.Entities;
 using System.Data;
 

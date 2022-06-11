@@ -1,7 +1,7 @@
-﻿using Steward.Garage.Application.Modules.DataReferences.CommandQuery;
-using Steward.Garage.Application.Modules.DataReferences.DTO;
+﻿using Steward.Garage.Application.Modules.Drivers.CommandQuery;
+using Steward.Garage.Application.Modules.Drivers.DTO;
 
-namespace Steward.Garage.Application.Modules.DataReferences.Interfaces
+namespace Steward.Garage.Application.Modules.Drivers.Interfaces
 {
     public interface IDriverService
     {

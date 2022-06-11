@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Steward.Garage.Application.Modules.DataReferences.CommandQuery;
-using Steward.Garage.Application.Modules.DataReferences.DTO;
-using Steward.Garage.Application.Modules.DataReferences.Entities;
-using Steward.Garage.Application.Modules.DataReferences.Interfaces;
+using Steward.Garage.Application.Modules.Drivers.Entities;
+using Steward.Garage.Application.Modules.Drivers.CommandQuery;
+using Steward.Garage.Application.Modules.Drivers.DTO;
+using Steward.Garage.Application.Modules.Drivers.Interfaces;
 using Steward.Garage.Application.Shared.Interfaces;
 
-namespace Steward.Garage.Application.Modules.DataReferences.Services
+namespace Steward.Garage.Application.Modules.Drivers.Services
 {
     public class DriverService : IDriverService
     {
@@ -81,6 +81,6 @@ namespace Steward.Garage.Application.Modules.DataReferences.Services
             return _mapper.Map<DriverDTO>(entityDriver);
 
         }
-    
+
     }
 }

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Steward.Garage.Application.Modules.DataReferences.DTO;
+using Steward.Garage.Application.Modules.Drivers.DTO;
 using Steward.Garage.Application.Shared.Interfaces;
 
-namespace Steward.Garage.Application.Modules.DataReferences.CommandQuery
+namespace Steward.Garage.Application.Modules.Drivers.CommandQuery
 {
     public class GetDriverProfileQuery : IRequest<DriverDTO>
     {

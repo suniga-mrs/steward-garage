@@ -7,6 +7,7 @@ using Steward.Garage.Infrastructure.Persistence.Interceptors;
 using Steward.Garage.Application.Modules.DataReferences.Entities;
 using Steward.Garage.Application.Shared.Models;
 using Steward.Garage.Application.Modules.BusinessProviders.Entities;
+using Steward.Garage.Application.Modules.Drivers.Entities;
 
 namespace Steward.Garage.Infrastructure.Persistence
 {

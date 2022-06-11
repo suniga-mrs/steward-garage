@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Steward.Garage.Application.Modules.DataReferences.CommandQuery;
-using Steward.Garage.Application.Modules.DataReferences.DTO;
+using Steward.Garage.Application.Modules.Drivers.CommandQuery;
+using Steward.Garage.Application.Modules.Drivers.DTO;
 using Steward.Garage.Application.Shared.Models;
 
-namespace Steward.Garage.Application.Modules.DataReferences.Controllers
+namespace Steward.Garage.Application.Modules.Drivers.Controllers
 {
     [Route("api/drivers")]
     [ApiController]

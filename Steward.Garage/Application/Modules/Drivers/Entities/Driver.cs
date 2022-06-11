@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Steward.Garage.Application.Shared.Models;
 using Steward.Garage.Infrastructure.Constants;
 
-namespace Steward.Garage.Application.Modules.DataReferences.Entities
+namespace Steward.Garage.Application.Modules.Drivers.Entities
 {
     public class Driver : BaseAuditableEntity
     {
         public int DriverId { get; }
         public Guid DriverGuid { get; }
-        public string FirstName { get; set; } = string.Empty;   
+        public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
         public string FullName { get; private set; } = string.Empty;
@@ -22,15 +22,15 @@ namespace Steward.Garage.Application.Modules.DataReferences.Entities
         {
 
         }
-    
+
         public Driver(string firstName = "", string lastName = "", string middleName = "",
             string suffix = "", string licenseNo = "", DateTime? birthDate = null, DateTime? licenseExpiry = null)
         {
             AssignValues(firstName, lastName, middleName, suffix, licenseNo, birthDate, licenseExpiry);
         }
 
-        private void AssignValues(string firstName, string lastName, string middleName, 
-            string suffix, string licenseNo, DateTime? birthDate, DateTime? licenseExpiry        
+        private void AssignValues(string firstName, string lastName, string middleName,
+            string suffix, string licenseNo, DateTime? birthDate, DateTime? licenseExpiry
             )
         {
             FirstName = firstName.ToUpper();
@@ -43,9 +43,9 @@ namespace Steward.Garage.Application.Modules.DataReferences.Entities
             LicenseExpiry = licenseExpiry;
         }
 
-        public static string JoinName(string firstName = "", string lastName= "", string middleName = "", string suffix = "")
+        public static string JoinName(string firstName = "", string lastName = "", string middleName = "", string suffix = "")
         {
-            return ($"{lastName}, {firstName} {middleName} {suffix}").ToUpper().Trim();
+            return $"{lastName}, {firstName} {middleName} {suffix}".ToUpper().Trim();
         }
 
         public void UpdateEntity(string firstName, string lastName, string middleName,

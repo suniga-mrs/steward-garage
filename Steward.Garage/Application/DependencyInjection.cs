@@ -2,6 +2,8 @@
 using MediatR;
 using Steward.Garage.Application.Modules.DataReferences.Interfaces;
 using Steward.Garage.Application.Modules.DataReferences.Services;
+using Steward.Garage.Application.Modules.Drivers.Interfaces;
+using Steward.Garage.Application.Modules.Drivers.Services;
 using Steward.Garage.Application.Modules.Vehicles.Interfaces;
 using Steward.Garage.Application.Modules.Vehicles.Services;
 using Steward.Garage.Application.Shared.Interfaces;

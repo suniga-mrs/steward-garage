@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Steward.Garage.Application.Modules.DataReferences.DTO;
-using Steward.Garage.Application.Modules.DataReferences.Entities;
+using Steward.Garage.Application.Modules.Drivers.DTO;
+using Steward.Garage.Application.Modules.Drivers.Entities;
 using Steward.Garage.Application.Shared.Interfaces;
 using Steward.Garage.Application.Shared.Models;
 using Steward.Garage.Core.Extensions;
 
-namespace Steward.Garage.Application.Modules.DataReferences.CommandQuery
+namespace Steward.Garage.Application.Modules.Drivers.CommandQuery
 {
     public class GetDriverListQuery : PagingQuery, IRequest<PaginatedResult<IEnumerable<DriverDTO>>>
     {
@@ -48,31 +48,31 @@ namespace Steward.Garage.Application.Modules.DataReferences.CommandQuery
                 .Where(o =>
                     o.IsDeleted == false &&
                     (
-                        (String.IsNullOrEmpty(_driverName) && o.DriverId != 0)
-                        || (!string.IsNullOrEmpty(_driverName) && EF.Functions.Like(o.FullName, $"%{_driverName}%"))
+                        string.IsNullOrEmpty(_driverName) && o.DriverId != 0
+                        || !string.IsNullOrEmpty(_driverName) && EF.Functions.Like(o.FullName, $"%{_driverName}%")
                     )
                     &&
                     (
-                        (String.IsNullOrEmpty(_driverName) && o.DriverId != 0)
-                        || (!string.IsNullOrEmpty(_driverName) && EF.Functions.Like(o.FullName, $"%{_licenseNo}%"))
+                        string.IsNullOrEmpty(_driverName) && o.DriverId != 0
+                        || !string.IsNullOrEmpty(_driverName) && EF.Functions.Like(o.FullName, $"%{_licenseNo}%")
                     )
                     &&
                     (
-                        ((_birthDateFrom == DateTime.MinValue || _birthDateTo == DateTime.MinValue) && o.DriverId != 0)
-                        || 
-                        (
-                            (_birthDateFrom != DateTime.MinValue || _birthDateTo != DateTime.MinValue)
-                            && ( o.Birthdate >= _birthDateFrom && o.Birthdate <= _birthDateTo)                        
-                        )
-                    )
-                    &&
-                    (
-                        ((_licenseExpiryFrom == DateTime.MinValue || _licenseExpiryTo == DateTime.MinValue) && o.DriverId != 0)
+                        (_birthDateFrom == DateTime.MinValue || _birthDateTo == DateTime.MinValue) && o.DriverId != 0
                         ||
-                        (
+                        
+                            (_birthDateFrom != DateTime.MinValue || _birthDateTo != DateTime.MinValue)
+                            && o.Birthdate >= _birthDateFrom && o.Birthdate <= _birthDateTo
+                        
+                    )
+                    &&
+                    (
+                        (_licenseExpiryFrom == DateTime.MinValue || _licenseExpiryTo == DateTime.MinValue) && o.DriverId != 0
+                        ||
+                        
                             (_licenseExpiryFrom != DateTime.MinValue || _licenseExpiryTo != DateTime.MinValue)
-                            && (o.LicenseExpiry >= _licenseExpiryFrom && o.LicenseExpiry <= _licenseExpiryTo)
-                        )
+                            && o.LicenseExpiry >= _licenseExpiryFrom && o.LicenseExpiry <= _licenseExpiryTo
+                        
                     )
 
                 )
