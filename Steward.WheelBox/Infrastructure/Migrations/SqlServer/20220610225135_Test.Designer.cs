@@ -12,7 +12,7 @@ using Steward.WheelBox.Infrastructure.Persistence;
 namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220609133302_Test")]
+    [Migration("20220610225135_Test")]
     partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,85 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.BusinessProviders.Entities.BusinessProvider", b =>
+                {
+                    b.Property<int>("ProviderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("providerid");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProviderId"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("createdby");
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datecreated");
+
+                    b.Property<DateTime>("DateDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datedeleted");
+
+                    b.Property<DateTime>("DateLastModified")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datelastmodified");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("deletedby");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("isdeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("lastmodifiedby");
+
+                    b.Property<string>("NormalizedProviderName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasDefaultValue("");
+
+                    b.Property<string>("ProviderName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasDefaultValue("")
+                        .HasColumnName("providername");
+
+                    b.HasKey("ProviderId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("ProviderId"));
+
+                    b.ToTable("tblbusinessprovider", (string)null);
+                });
 
             modelBuilder.Entity("Steward.WheelBox.Application.Modules.DataReferences.Entities.Driver", b =>
                 {
@@ -39,26 +118,36 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("createdby");
 
                     b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datecreated");
 
                     b.Property<DateTime>("DateDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datedeleted");
 
                     b.Property<DateTime>("DateLastModified")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datelastmodified");
 
                     b.Property<string>("DeletedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("deletedby");
 
                     b.Property<Guid>("DriverGuid")
@@ -84,13 +173,17 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                         .HasColumnName("fullname");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasColumnName("isdeleted");
 
                     b.Property<string>("LastModifiedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("lastmodifiedby");
 
                     b.Property<string>("LastName")
@@ -159,36 +252,50 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("createdby");
 
                     b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datecreated");
 
                     b.Property<DateTime>("DateDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datedeleted");
 
                     b.Property<DateTime>("DateLastModified")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datelastmodified");
 
                     b.Property<string>("DeletedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("deletedby");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasColumnName("isdeleted");
 
                     b.Property<string>("LastModifiedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("lastmodifiedby");
 
                     b.Property<string>("Name")
@@ -228,35 +335,45 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
 
             modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.GasLog", b =>
                 {
-                    b.Property<int>("DetNo")
+                    b.Property<int>("GasLogId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("detno");
+                        .HasColumnName("gaslogid");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetNo"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GasLogId"), 1L, 1);
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("createdby");
 
                     b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datecreated");
 
                     b.Property<DateTime>("DateDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datedeleted");
 
                     b.Property<DateTime>("DateLastModified")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datelastmodified");
 
                     b.Property<string>("DeletedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("deletedby");
 
                     b.Property<decimal>("GasAmount")
@@ -280,14 +397,28 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                         .HasColumnName("gasvolumeunitid");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasColumnName("isdeleted");
 
                     b.Property<string>("LastModifiedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("lastmodifiedby");
+
+                    b.Property<DateTime?>("LogDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("logdate");
+
+                    b.Property<int>("OdometerLogId")
+                        .HasColumnType("int")
+                        .HasColumnName("odometerlogid");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
@@ -301,9 +432,9 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                         .HasColumnType("int")
                         .HasColumnName("vehicleid");
 
-                    b.HasKey("DetNo");
+                    b.HasKey("GasLogId");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("DetNo"));
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("GasLogId"));
 
                     b.HasIndex("GasAmountUnitId");
 
@@ -314,6 +445,200 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                     SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("VehicleId"), false);
 
                     b.ToTable("tblgaslogs", (string)null);
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.MaintenanceLog", b =>
+                {
+                    b.Property<int>("MaintenanceLogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("maintenancelogid");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaintenanceLogId"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("createdby");
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datecreated");
+
+                    b.Property<DateTime>("DateDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datedeleted");
+
+                    b.Property<DateTime>("DateLastModified")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datelastmodified");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("deletedby");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("isdeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("lastmodifiedby");
+
+                    b.Property<DateTime?>("LogDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("logdate");
+
+                    b.Property<int>("OdometerLogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasColumnName("odometerlogid");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("")
+                        .HasColumnName("remarks");
+
+                    b.Property<int>("ServiceById")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasColumnName("servicebyid");
+
+                    b.Property<decimal>("TotalAmount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m)
+                        .HasColumnName("totalamount");
+
+                    b.Property<int>("TotalAmountUnitId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasColumnName("totalamountunitid");
+
+                    b.Property<int>("VehicleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasColumnName("vehicleid");
+
+                    b.HasKey("MaintenanceLogId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("MaintenanceLogId"));
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("tblmaintenancelogs", (string)null);
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.OdometerLog", b =>
+                {
+                    b.Property<int>("OdometerLogId")
+                        .HasColumnType("int")
+                        .HasColumnName("odometerlogid");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("createdby");
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datecreated");
+
+                    b.Property<DateTime>("DateDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datedeleted");
+
+                    b.Property<DateTime>("DateLastModified")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("datelastmodified");
+
+                    b.Property<DateTime?>("DateRead")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                        .HasColumnName("dateread");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("deletedby");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("isdeleted");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("lastmodifiedby");
+
+                    b.Property<decimal>("Reading")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m)
+                        .HasColumnName("reading");
+
+                    b.Property<int>("ReadingUnitId")
+                        .HasColumnType("int")
+                        .HasColumnName("readingunitid");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int")
+                        .HasColumnName("vehicleid");
+
+                    b.HasKey("OdometerLogId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("OdometerLogId"));
+
+                    b.HasIndex("ReadingUnitId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("tblodometerlogs", (string)null);
                 });
 
             modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", b =>
@@ -335,26 +660,36 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("createdby");
 
                     b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datecreated");
 
                     b.Property<DateTime>("DateDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datedeleted");
 
                     b.Property<DateTime>("DateLastModified")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                         .HasColumnName("datelastmodified");
 
                     b.Property<string>("DeletedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("deletedby");
 
                     b.Property<string>("EngineNo")
@@ -366,13 +701,17 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                         .HasColumnName("engineno");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasColumnName("isdeleted");
 
                     b.Property<string>("LastModifiedBy")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
+                        .HasDefaultValue("")
                         .HasColumnName("lastmodifiedby");
 
                     b.Property<string>("Make")
@@ -471,7 +810,7 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                         .IsRequired();
 
                     b.HasOne("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", "Vehicle")
-                        .WithMany("GasLog")
+                        .WithMany("GasLogList")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -483,16 +822,92 @@ namespace Steward.WheelBox.Infrastructure.Migrations.SqlServer
                     b.Navigation("Vehicle");
                 });
 
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.MaintenanceLog", b =>
+                {
+                    b.HasOne("Steward.WheelBox.Application.Modules.BusinessProviders.Entities.BusinessProvider", "ServiceBy")
+                        .WithMany("MaintenanceLogList")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", "Vehicle")
+                        .WithMany("MaintenanceLogList")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServiceBy");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.OdometerLog", b =>
+                {
+                    b.HasOne("Steward.WheelBox.Application.Modules.Vehicles.Entities.GasLog", "GasLog")
+                        .WithOne("OdometerLog")
+                        .HasForeignKey("Steward.WheelBox.Application.Modules.Vehicles.Entities.OdometerLog", "OdometerLogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Steward.WheelBox.Application.Modules.Vehicles.Entities.MaintenanceLog", "MaintenanceLog")
+                        .WithOne("OdometerLog")
+                        .HasForeignKey("Steward.WheelBox.Application.Modules.Vehicles.Entities.OdometerLog", "OdometerLogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Steward.WheelBox.Application.Modules.DataReferences.Entities.Unit", "ReadingUnit")
+                        .WithMany("OdometerReadingList")
+                        .HasForeignKey("ReadingUnitId")
+                        .IsRequired();
+
+                    b.HasOne("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", "Vehicle")
+                        .WithMany("OdometerLogList")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GasLog");
+
+                    b.Navigation("MaintenanceLog");
+
+                    b.Navigation("ReadingUnit");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.BusinessProviders.Entities.BusinessProvider", b =>
+                {
+                    b.Navigation("MaintenanceLogList");
+                });
+
             modelBuilder.Entity("Steward.WheelBox.Application.Modules.DataReferences.Entities.Unit", b =>
                 {
                     b.Navigation("GasAmountList");
 
                     b.Navigation("GasVolumeList");
+
+                    b.Navigation("OdometerReadingList");
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.GasLog", b =>
+                {
+                    b.Navigation("OdometerLog")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.MaintenanceLog", b =>
+                {
+                    b.Navigation("OdometerLog")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Steward.WheelBox.Application.Modules.Vehicles.Entities.Vehicle", b =>
                 {
-                    b.Navigation("GasLog");
+                    b.Navigation("GasLogList");
+
+                    b.Navigation("MaintenanceLogList");
+
+                    b.Navigation("OdometerLogList");
                 });
 #pragma warning restore 612, 618
         }

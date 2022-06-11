@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Steward.WheelBox.Application.Modules.Vehicles.Entities;
 using Steward.WheelBox.Application.Shared.Models;
+using Steward.WheelBox.Infrastructure.Constants;
 
 namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
 {
@@ -14,6 +15,7 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
 
         public virtual IList<GasLog> GasAmountList { get; } = null!;
         public virtual IList<GasLog> GasVolumeList { get; } = null!;
+        public virtual IList<OdometerLog> OdometerReadingList { get; } = null!;
 
 
         public Unit(string name = "", string prefix = "", string suffix = "")
@@ -68,9 +70,9 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
             builder.HasIndex(p => p.Name).IsClustered(false);
 
             //Base Auditable Entity Config
-            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(DateTime.MinValue);
-            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(DateTime.MinValue);
-            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
+            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
+            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
             builder.Property(p => p.LastModifiedBy).HasColumnName("lastmodifiedby").HasMaxLength(500).HasDefaultValue("");
             builder.Property(p => p.CreatedBy).HasColumnName("createdby").HasMaxLength(500).HasDefaultValue("");
             builder.Property(p => p.DeletedBy).HasColumnName("deletedby").HasMaxLength(500).HasDefaultValue("");

@@ -25,7 +25,9 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
         public string EngineNo { get; set; } = string.Empty;
         public string NormalizedEngineNo { get; private set; } = string.Empty;
 
-        public IList<GasLog> GasLog { get; } = null!;
+        public virtual IList<GasLog> GasLogList { get; } = null!;
+        public virtual IList<OdometerLog> OdometerLogList { get; } = null!;
+        public virtual IList<MaintenanceLog> MaintenanceLogList { get; } = null!;
 
         public void UpdateEntity(string make, string model, short year, string plateNo, string chassisNo, string engineNo)
         {
@@ -97,9 +99,9 @@ namespace Steward.WheelBox.Application.Modules.Vehicles.Entities
 
 
             //Base Auditable Entity Config
-            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(DateTime.MinValue);
-            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(DateTime.MinValue);
-            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
+            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
+            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
             builder.Property(p => p.LastModifiedBy).HasColumnName("lastmodifiedby").HasMaxLength(500).HasDefaultValue("");
             builder.Property(p => p.CreatedBy).HasColumnName("createdby").HasMaxLength(500).HasDefaultValue("");
             builder.Property(p => p.DeletedBy).HasColumnName("deletedby").HasMaxLength(500).HasDefaultValue("");

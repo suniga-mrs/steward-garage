@@ -1,27 +1,29 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import BaseSidebar from './components/ui/base-sidebar/base-sidebar.vue'
-import BaseTopbar from './components/ui/base-topbar/base-topbar.vue'
+import type { Ref } from 'vue';
+
+
+const AppWrapper = ref<HTMLElement | undefined>();
+
+//provide('AppWrapper', () : Ref<HTMLElement> => document.getElementById("app-wrapper"));
+provide('AppWrapper', (): HTMLElement | undefined => AppWrapper.value);
 
 </script>
 
 <template>
+  <div class="layout-wrapper d-flex flex-row flex-column-fluid " id="app-wrapper" ref="AppWrapper">
 
+    <NavSidebar class="d-flex flex-column"></NavSidebar>
 
-  <div class="layout-wrapper d-flex flex-row flex-column-fluid ">
-    <BaseSidebar class="d-flex flex-column"></BaseSidebar>
     <div class="d-flex flex-column content-wrapper">
 
-      <BaseTopbar></BaseTopbar>
+      <!-- <BaseTopbar></BaseTopbar> -->
 
       <div class="content">
         <RouterView />
       </div>
+
     </div>
   </div>
-
-
-
 </template>
 
 <style lang="scss">

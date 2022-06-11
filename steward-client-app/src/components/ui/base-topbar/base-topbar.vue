@@ -1,10 +1,16 @@
-<script setup>
-import { watch, ref, onMounted } from 'vue'
+<script lang="ts" setup>
+
+const AppWrapper = inject<Function>("AppWrapper");
 
 
 onMounted(() => {
-    document.querySelector('body').classList.add('layout-topbar')
+    AppWrapper?.()?.classList.add('layout-topbar')
  })
+
+
+onUnmounted(() => {
+    AppWrapper?.()?.classList.remove('layout-topbar')
+})
 
 </script>
 

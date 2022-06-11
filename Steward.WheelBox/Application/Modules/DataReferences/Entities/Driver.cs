@@ -91,9 +91,9 @@ namespace Steward.WheelBox.Application.Modules.DataReferences.Entities
 
 
             //Base Auditable Entity Config
-            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(DateTime.MinValue);
-            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(DateTime.MinValue);
-            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(DateTime.MinValue);
+            builder.Property(p => p.DateCreated).HasColumnName("datecreated").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
+            builder.Property(p => p.DateLastModified).HasColumnName("datelastmodified").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
+            builder.Property(p => p.DateDeleted).HasColumnName("datedeleted").HasDefaultValue(SqlServerSpecificSyntax.DefaultDateTime);
             builder.Property(p => p.LastModifiedBy).HasColumnName("lastmodifiedby").HasMaxLength(500).HasDefaultValue("");
             builder.Property(p => p.CreatedBy).HasColumnName("createdby").HasMaxLength(500).HasDefaultValue("");
             builder.Property(p => p.DeletedBy).HasColumnName("deletedby").HasMaxLength(500).HasDefaultValue("");

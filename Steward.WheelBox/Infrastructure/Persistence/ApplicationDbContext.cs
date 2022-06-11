@@ -6,6 +6,7 @@ using System.Reflection;
 using Steward.WheelBox.Infrastructure.Persistence.Interceptors;
 using Steward.WheelBox.Application.Modules.DataReferences.Entities;
 using Steward.WheelBox.Application.Shared.Models;
+using Steward.WheelBox.Application.Modules.BusinessProviders.Entities;
 
 namespace Steward.WheelBox.Infrastructure.Persistence
 {
@@ -29,15 +30,18 @@ namespace Steward.WheelBox.Infrastructure.Persistence
         public DbSet<Unit> Units => Set<Unit>();
         public DbSet<GasLog> GasLogs => Set<GasLog>();
         public DbSet<Driver> Drivers => Set<Driver>();
+        public DbSet<OdometerLog> OdometerLogs => Set<OdometerLog>();
+        public DbSet<MaintenanceLog> MaintenanceLogs => Set<MaintenanceLog>();
+        public DbSet<BusinessProvider> BusinessProviders => Set<BusinessProvider>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        //    builder.Entity<BaseAuditableEntity>()
-        //.Property(p => )
-        //.HasDefaultValue(3);
+            //    builder.Entity<BaseAuditableEntity>()
+            //.Property(p => )
+            //.HasDefaultValue(3);
 
             //foreach (var entityType in builder.Model.GetEntityTypes())
             //{
@@ -45,9 +49,6 @@ namespace Steward.WheelBox.Infrastructure.Persistence
             //    {
 
             //    }
-
-
-
             //}
 
             base.OnModelCreating(builder);
