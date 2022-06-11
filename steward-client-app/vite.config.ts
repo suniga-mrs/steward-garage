@@ -27,11 +27,15 @@ export default defineConfig({
 
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
+      eslintrc: {
+        enabled: true, // <-- this
+      },
       imports: [
         'vue',
         'vue-router',
+        '@vueuse/core',
       ],
-      dts: true,
+      dts: 'src/auto-imports.d.ts',
     }),
 
     //https://github.com/antfu/unplugin-vue-components
@@ -44,7 +48,7 @@ export default defineConfig({
       // filters for transforming targets
       include: [/\.vue$/, /\.vue\?vue/],
       exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
-      dts: true
+      dts: 'src/components.d.ts',
     }),
   ],
 });
