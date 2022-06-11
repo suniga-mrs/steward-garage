@@ -16,15 +16,18 @@ const wrapperClasses = layoutComposable.classes;
 
 <template>
   <div ref="AppWrapper" :class="wrapperClasses">
-    <!-- <LayoutDefault></LayoutDefault> -->
+    <LayoutDefault></LayoutDefault>
 
-    <LayoutTopHeader></LayoutTopHeader>
+    <!-- <LayoutTopHeader></LayoutTopHeader> -->
   </div>
 
 </template>
 
 <style lang="scss">
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "./assets/scss/_root.scss";
+
 @import "./assets/scss/_layout.scss";
+
 
 </style>

@@ -1,5 +1,6 @@
 <script lang="ts" setup>    
 import type BaseSideBar from '../ui/base-sidebar/base-sidebar.vue';
+import { isSM } from '../../utilities/breakpoint.util';
 
 const elNavSidebar = ref<InstanceType<typeof BaseSideBar>>();
 
@@ -15,7 +16,7 @@ function toggle() {
 
 <template>
     <div class="layout-wrapper d-flex flex-row flex-column-fluid">
-        <BaseSidebar ref="elNavSidebar" :is-full-layout="true">
+        <BaseSidebar ref="elNavSidebar" :is-full-layout="true" v-show="isSM == false">
 
             <template #sidebar-brand>
                 <button type="button" @click="toggle">TOGGLE</button>

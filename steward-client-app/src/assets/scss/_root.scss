@@ -1,0 +1,10 @@
+@import "./_variables.scss";
+@import '../../../node_modules/bootstrap/scss/bootstrap-utilities.scss';
+
+
+:root {
+    --#{$variable-prefix}-sidebar-bg: #{$sidebar-bg};
+    --#{$variable-prefix}-topbar-bg: #{$topbar-bg};
+    --#{$variable-prefix}-content-wrapper-bg: #{$content-wrapper-bg};
+    --#{$variable-prefix}-content-bg: #{$content-bg};
+}

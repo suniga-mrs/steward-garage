@@ -81,7 +81,19 @@ defineExpose({
 <style lang="scss">
 
 
+
+
+
+
+
+
+
+
+
+@import '../../../assets/scss/variables';
 @import '../../../../node_modules/bootstrap/scss/bootstrap-utilities.scss';
+@import '../../../assets/scss/util/root-util';
+@import '../../../assets/scss/scrollbar';
 
 .sidebar-brand {
     height: $topbar-height;
@@ -93,8 +105,6 @@ defineExpose({
     }
 }
 
-
-
 .sidebar-full-layout {
 
     .sidebar {
@@ -103,40 +113,19 @@ defineExpose({
         left: 0;    
         position: fixed;  
     }
-
-    .topbar {
-        &:not(.top-header) {
-            left: $sidebar-open-width;
-            z-index: 97;
-        }
-    }    
-    
-    &.sidebar-minimized {
-        .content-wrapper {
-            margin-left: $sidebar-minimized-width;
-        }
-        .topbar:not(.topbar-header) {
-            left: $sidebar-minimized-width;
-        }
-    }
-
-    .content-wrapper {
-        margin-left: $sidebar-open-width;
-    }    
+     
 }
-
-
 
 .sidebar {
     width: $sidebar-open-width;
-    background: red;
+    background: user_root_var('sidebar-bg');
     position: absolute;
    
     top: unset;
     bottom: unset;
     left: unset;
 
-    z-index: 98;
+    // z-index: 98;
     transition: $layout-transition;             
 }
 
@@ -144,10 +133,41 @@ defineExpose({
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100vh - #{$topbar-height} - (#{$sidebar-menu-y-margin} * 2) );
-    margin: $sidebar-menu-y-margin 0;
+    margin: $sidebar-menu-y-margin 0;    
+
+        @include mix-scrollbar($thumb-color: rgba(100, 100, 100, 1),
+            $thumb-color-hidden: rgba(100, 100, 100, 0),
+            $thumb-color-hover: rgb(46, 46, 46),
+            $thumb-size: $scrollbar-thumb-size,
+            $track-color: user_root_var('sidebar-bg'));
 }
 
 @include media-breakpoint-up(sm) {
+
+    .sidebar-full-layout {
+        .topbar {
+            &:not(.top-header) {
+                left: $sidebar-open-width;
+                // z-index: 97;
+            }
+        }
+
+        &.sidebar-minimized {
+            .content-wrapper {
+                margin-left: $sidebar-minimized-width;
+            }
+
+            .topbar:not(.topbar-header) {
+                left: $sidebar-minimized-width;
+            }
+        }
+
+        .content-wrapper {
+            margin-left: $sidebar-open-width;
+        }
+
+    }
+
     .sidebar-content-layout {
 
         .content {

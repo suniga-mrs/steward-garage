@@ -1,4 +1,7 @@
 @import "./_variables.scss";
+@import "../../../node_modules/bootstrap/scss/bootstrap-utilities.scss";
+@import "./util/root-util";
+@import "./scrollbar";
 
 body {
     overflow-y: hidden;
@@ -12,13 +15,27 @@ body {
 .content-wrapper {
     flex: 1 auto;
     transition: $layout-transition;
-    background: aqua;
+    background: user_root_var('content-wrapper-bg');;
 
     .content {
         overflow-y: auto;
         height: 100vh;
         transition: $layout-transition;
+        background: user_root_var('content-bg');
+        padding: 1rem;     
+
+        @include mix-scrollbar(
+            $thumb-color: rgba(100, 100, 100, 1),
+            $thumb-color-hidden: rgba(100, 100, 100, 0),
+            $thumb-color-hover: rgb(46, 46, 46),
+            $track-color: user_root_var('content-bg')
+        );
     }
+}
 
-
+@include media-breakpoint-up(sm) {
+    .content {
+        
+        border-bottom-left-radius: $content-border-radius-bottom-left;
+    }
 }

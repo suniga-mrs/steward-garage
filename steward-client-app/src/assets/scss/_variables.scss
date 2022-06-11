@@ -1,3 +1,5 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap-utilities.scss';
+
 $variable-prefix: "stwrd";
 
 
@@ -12,4 +14,21 @@ $layout-transition:  all 100ms ease-in-out;
 $topbar-height: 60px;
 $topbar-brand-width: 150px;
 
+$content-border-radius-bottom-left: 40px;
 
+/* colors */
+$sidebar-bg: transparent !default ;
+
+$topbar-bg: #FCFCFC !default;
+
+$content-wrapper-bg:  #FCFCFC !default;
+$content-bg: #D9D9D9 !default;
+// $sidebar-bg-rgb: to-rgb($sidebar-bg);
+
+
+// $scrollbar-thumb-color:  
+$scrollbar-track-color: #ffffff  !default;
+$scrollbar-thumb-color: rgba(223, 223, 223, 1)  !default;
+$scrollbar-thumb-color-hidden: rgba(223, 223, 223, 0)  !default;
+$scrollbar-thumb-color-hover: rgb(200, 200, 200)  !default;
+$scrollbar-thumb-size: 12px  !default;

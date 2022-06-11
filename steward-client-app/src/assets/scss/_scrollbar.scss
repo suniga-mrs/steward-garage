@@ -1,0 +1,64 @@
+@import './_variables.scss';
+
+// @mixin mix-scrollbar-thumb-color() {
+//     background-color: $scrollbar-thumb-color;
+// }
+
+// @mixin mix-scrollbar-thumb-color-hidden() {
+//     background-color: $scrollbar-thumb-color-hidden;
+// }
+
+// @mixin mix-scrollbar-track-color() {
+//     background: $scrollbar-track-color;
+// }
+
+
+@mixin mix-scrollbar($thumb-color: $scrollbar-thumb-color,
+    $thumb-color-hidden: $scrollbar-thumb-color-hidden,
+    $thumb-color-hover: $scrollbar-thumb-color-hover,
+    $thumb-size: $scrollbar-thumb-size,
+    $track-color: $scrollbar-track-color ) {
+
+    /* Firefox */
+    scrollbar-width: auto;
+    scrollbar-color: $thumb-color;
+    transition: background-color 300ms ease-in;
+
+    /* Chrome, Edge, and Safari */
+    &::-webkit-scrollbar {
+        width: $thumb-size;
+        height: $thumb-size;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $track-color;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        border: 3px solid $track-color;
+        transition: background-color 500ms ease-out;
+        background-color: $thumb-color-hidden;
+        transition: background-color 500ms ease-in;
+
+        &:vertical,
+        &:horizontal {
+
+            &:hover {
+                background-color: $thumb-color-hover;
+            }
+
+            &:active {
+                background-color: darken($thumb-color-hover, 10%);
+            }
+
+        }
+    }
+
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            background-color: $thumb-color;
+        }
+    }
+
+}

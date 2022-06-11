@@ -7,7 +7,6 @@ const props = defineProps<{
     isHeader?: Boolean
 }>();
 
-
 onMounted(() => {
     layoutComposable.addClass('layout-topbar')
 })
@@ -30,14 +29,15 @@ onUnmounted(() => {
             <slot name="topbar-brand"></slot>
         </div>
 
-        <select>
+        <!-- <select>
             <option value="TEST">TEST</option>
-        </select>
+        </select> -->
 
     </div>
 </template>
 
 <style lang="scss">
+
 
 
 
@@ -52,13 +52,15 @@ onUnmounted(() => {
 
 .topbar {
     height: $topbar-height;
-    background: pink;
+    background: user_root_var('topbar-bg');
     transition: $layout-transition;
     position: fixed;
     top: 0;
     right: 0;
     left: 0;   
     display: flex;
+
+    box-shadow:0px 4px 8px rgba(0,0,0,0.1);
 }
 
 .topbar-brand {
