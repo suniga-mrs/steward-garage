@@ -1,5 +1,12 @@
 <script lang="ts" setup>
 import type { Ref } from 'vue'; 
+import useLayout from '../../../composables/layout.composable'
+
+
+const props = defineProps<{
+    isFullLayout?: Boolean
+}>();
+
 
 const isMinimized = ref(false);
 
@@ -8,24 +15,41 @@ const emit = defineEmits<{
 }>()
 
 const classes = {
-    bodySideBarMinimized: "sidebar-minimized",
+    bodySidebarContentLayout: "sidebar-content-layout",
+    bodySidebarFullLayout: "sidebar-full-layout",
+    bodySidebarMinimized: "sidebar-minimized",
 }
 
-const AppWrapper = inject<Function>("AppWrapper");
+const layoutComposable = useLayout();
 
-watch(isMinimized, (currentValue, oldValue) => {
-    
+watch(isMinimized, (currentValue, oldValue) => {    
     if (currentValue) {
-        AppWrapper?.()?.classList.add(classes.bodySideBarMinimized);
+        layoutComposable.addClass(classes.bodySidebarMinimized);
     }
     else{
-        AppWrapper?.()?.classList.remove(classes.bodySideBarMinimized);
-    }
-
+        layoutComposable.removeClass(classes.bodySidebarMinimized);
+    }   
 });
 
+onMounted(() => {
+    if (props.isFullLayout){
+        layoutComposable.addClass(classes.bodySidebarFullLayout);
+    }
+    else {
+        layoutComposable.addClass(classes.bodySidebarContentLayout);
+    }
+});
+
+onUnmounted(() => {
+    layoutComposable.removeClass(classes.bodySidebarMinimized);
+    layoutComposable.removeClass(classes.bodySidebarFullLayout);
+    layoutComposable.removeClass(classes.bodySidebarContentLayout);
+})
+
 function toggleSidebar() { 
+
     isMinimized.value = !isMinimized.value 
+
     emit("sidebar:toggled", isMinimized.value);
     return unref(isMinimized);
 }
@@ -41,7 +65,7 @@ defineExpose({
     <div class="sidebar" :class="{
         minimized: isMinimized
     }">
-        <div class="sidebar-brand">
+        <div class="sidebar-brand" v-show="isFullLayout">
             <slot name="sidebar-brand" ></slot>
         </div>
         <div class="sidebar-menu-wrapper">
@@ -54,29 +78,67 @@ defineExpose({
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
+
+@import '../../../../node_modules/bootstrap/scss/bootstrap-utilities.scss';
 
 .sidebar-brand {
     height: $topbar-height;
 }
 
-.sidebar-minimized .sidebar {
-    width: $sidebar-minimized-width;  
+.sidebar-minimized {
+    .sidebar {
+        width: $sidebar-minimized-width;
+    }
 }
+
+
+
+.sidebar-full-layout {
+
+    .sidebar {
+        top: 0;
+        bottom: 0;
+        left: 0;    
+        position: fixed;  
+    }
+
+    .topbar {
+        &:not(.top-header) {
+            left: $sidebar-open-width;
+            z-index: 97;
+        }
+    }    
+    
+    &.sidebar-minimized {
+        .content-wrapper {
+            margin-left: $sidebar-minimized-width;
+        }
+        .topbar:not(.topbar-header) {
+            left: $sidebar-minimized-width;
+        }
+    }
+
+    .content-wrapper {
+        margin-left: $sidebar-open-width;
+    }    
+}
+
+
 
 .sidebar {
     width: $sidebar-open-width;
     background: red;
+    position: absolute;
+   
+    top: unset;
+    bottom: unset;
+    left: unset;
 
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
     z-index: 98;
-
     transition: $layout-transition;             
 }
-
 
 .sidebar-menu {
     overflow-y: auto;
@@ -84,5 +146,22 @@ defineExpose({
     height: calc(100vh - #{$topbar-height} - (#{$sidebar-menu-y-margin} * 2) );
     margin: $sidebar-menu-y-margin 0;
 }
+
+@include media-breakpoint-up(sm) {
+    .sidebar-content-layout {
+
+        .content {
+            margin-left: $sidebar-open-width;
+        }
+
+        &.sidebar-minimized {
+            .content {
+                margin-left: $sidebar-minimized-width;
+            }
+        }
+
+    }
+}
+
 
 </style>

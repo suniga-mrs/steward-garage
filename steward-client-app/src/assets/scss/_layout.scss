@@ -1,0 +1,24 @@
+@import "./_variables.scss";
+
+body {
+    overflow-y: hidden;
+}
+
+.layout-wrapper {
+    flex: 1 0 auto;
+}
+
+
+.content-wrapper {
+    flex: 1 auto;
+    transition: $layout-transition;
+    background: aqua;
+
+    .content {
+        overflow-y: auto;
+        height: 100vh;
+        transition: $layout-transition;
+    }
+
+
+}

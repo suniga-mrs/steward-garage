@@ -1,62 +1,30 @@
 <script setup lang="ts">
-import type { Ref } from 'vue';
-
+import type { Ref, InjectionKey } from 'vue';
+import { isSM } from './utilities/breakpoint.util'
+import useLayout from './composables/layout.composable'
 
 const AppWrapper = ref<HTMLElement | undefined>();
+const layoutComposable = useLayout();
 
 //provide('AppWrapper', () : Ref<HTMLElement> => document.getElementById("app-wrapper"));
-provide('AppWrapper', (): HTMLElement | undefined => AppWrapper.value);
+// provide('AppWrapper', (): HTMLElement | undefined => AppWrapper.value);
+
+
+const wrapperClasses = layoutComposable.classes;
 
 </script>
 
 <template>
-  <div class="layout-wrapper d-flex flex-row flex-column-fluid " id="app-wrapper" ref="AppWrapper">
+  <div ref="AppWrapper" :class="wrapperClasses">
+    <!-- <LayoutDefault></LayoutDefault> -->
 
-    <NavSidebar class="d-flex flex-column"></NavSidebar>
-
-    <div class="d-flex flex-column content-wrapper">
-
-      <!-- <BaseTopbar></BaseTopbar> -->
-
-      <div class="content">
-        <RouterView />
-      </div>
-
-    </div>
+    <LayoutTopHeader></LayoutTopHeader>
   </div>
+
 </template>
 
 <style lang="scss">
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
-
-body {
-  overflow-y: hidden;
-}
-
-.layout-wrapper {
-  flex: 1 0 auto;
-}
-
-.sidebar-minimized .content-wrapper {
-    margin-left: $sidebar-minimized-width;
-}
-
-.content-wrapper {
-  margin-left: $sidebar-open-width;
-  flex: 1 auto;
-  transition: $layout-transition;
-  // padding-top: $topbar-height;
-
-  background: aqua;
-  
-  .content {
-    overflow-y: auto;
-    height: 100vh;
-  }
-
- 
-}
-
-
+@import "./assets/scss/_layout.scss";
 
 </style>

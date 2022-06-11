@@ -7,7 +7,8 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BaseSidebar: typeof import('./components/ui/base-sidebar/base-sidebar.vue')['default']
     BaseTopbar: typeof import('./components/ui/base-topbar/base-topbar.vue')['default']
-    NavSidebar: typeof import('./components/app/nav-sidebar/nav-sidebar.vue')['default']
+    LayoutDefault: typeof import('./components/layouts/layout-default.vue')['default']
+    LayoutTopHeader: typeof import('./components/layouts/layout-top-header.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
