@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ref, InjectionKey } from 'vue';
-import { isSM } from './utilities/breakpoint.util'
+
 import useLayout from './composables/layout.composable'
 
 const AppWrapper = ref<HTMLElement | undefined>();
@@ -16,9 +16,9 @@ const wrapperClasses = layoutComposable.classes;
 
 <template>
   <div ref="AppWrapper" :class="wrapperClasses">
-    <LayoutDefault></LayoutDefault>
+    <!-- <LayoutDefault></LayoutDefault> -->
 
-    <!-- <LayoutTopHeader></LayoutTopHeader> -->
+    <LayoutTopHeader></LayoutTopHeader>
   </div>
 
 </template>

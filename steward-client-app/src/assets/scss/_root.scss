@@ -4,7 +4,11 @@
 
 :root {
     --#{$variable-prefix}-sidebar-bg: #{$sidebar-bg};
+
     --#{$variable-prefix}-topbar-bg: #{$topbar-bg};
+    --#{$variable-prefix}-topbar-height: #{$topbar-height};
+    --#{$variable-prefix}-topbar-brand-width: #{$topbar-brand-width};
+
     --#{$variable-prefix}-content-wrapper-bg: #{$content-wrapper-bg};
     --#{$variable-prefix}-content-bg: #{$content-bg};
 }

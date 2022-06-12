@@ -19,7 +19,9 @@ function toggle() {
         <BaseSidebar ref="elNavSidebar" :is-full-layout="true" v-show="isSM == false">
 
             <template #sidebar-brand>
-                <button type="button" @click="toggle">TOGGLE</button>
+                <div class="layout-brand-logo d-flex align-items-center h-100">
+                    <BrandLogo1></BrandLogo1>
+                </div>
             </template>
 
             <RouterLink to="/">HOME</RouterLink>
@@ -295,10 +297,19 @@ function toggle() {
                 </p>
             </div>
 
+
+
+
+
         </BaseSidebar>
         <div class="d-flex flex-column content-wrapper">
 
-            <BaseTopbar :is-header="false"></BaseTopbar>
+            <BaseTopbar :is-header="false">
+                <template #default>
+                    <!-- <button type="button" @click="toggle">TOGGLE</button> -->
+                    <BaseTopbarNavMenu class="ps-4"></BaseTopbarNavMenu>
+                </template>
+            </BaseTopbar>
 
             <div class="content">
                 <RouterView />
@@ -307,3 +318,12 @@ function toggle() {
         </div>
     </div>
 </template>
+
+
+<style lang="scss" scoped>
+
+
+.layout-brand-logo {
+    font-size: 0.9em;
+}
+</style>

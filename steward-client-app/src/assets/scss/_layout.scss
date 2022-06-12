@@ -2,9 +2,12 @@
 @import "../../../node_modules/bootstrap/scss/bootstrap-utilities.scss";
 @import "./util/root-util";
 @import "./scrollbar";
+@import "./fonts";
+
 
 body {
     overflow-y: hidden;
+    font-family: $font-family;
 }
 
 .layout-wrapper {

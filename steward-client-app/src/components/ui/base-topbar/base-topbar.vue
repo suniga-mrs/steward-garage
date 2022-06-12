@@ -25,8 +25,12 @@ onUnmounted(() => {
     }">
 
         <div class="topbar-brand" v-show="isHeader">
-            SHOW
+            <!-- SHOW -->
             <slot name="topbar-brand"></slot>
+        </div>
+
+        <div>
+            <slot></slot>
         </div>
 
         <!-- <select>
@@ -37,21 +41,21 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss">
-
+@import '../../../assets/scss/util/root-util';
 
 
 
 .layout-topbar {
     .content-wrapper {
-        padding-top: $topbar-height;
+        padding-top: user_root_var('topbar-height');
         .content {
-            height: calc(100vh - #{$topbar-height})
+            height: calc(100vh - #{user_root_var('topbar-height')})
         }
     }            
 }
 
 .topbar {
-    height: $topbar-height;
+    height: user_root_var('topbar-height');
     background: user_root_var('topbar-bg');
     transition: $layout-transition;
     position: fixed;
@@ -64,7 +68,7 @@ onUnmounted(() => {
 }
 
 .topbar-brand {
-    width: $topbar-brand-width;
+    width: user_root_var('topbar-brand-width');
 }
 
 

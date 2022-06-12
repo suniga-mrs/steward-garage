@@ -15,7 +15,13 @@ function toggle() {
     <div class="layout-wrapper d-flex flex-row flex-column-fluid">
         <BaseTopbar :is-header="true">
             <template #topbar-brand>
-                <button type="button" @click="toggle">TOGGLE</button>
+                <div class="layout-brand-logo d-flex align-items-center h-100">
+                    <BrandLogo1></BrandLogo1>
+                </div>
+            </template>
+            <template #default>
+                <!-- <button type="button" @click="toggle">TOGGLE</button> -->
+                <BaseTopbarNavMenu></BaseTopbarNavMenu>
             </template>
         </BaseTopbar>
 
@@ -306,3 +312,10 @@ function toggle() {
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+
+.layout-brand-logo {
+    font-size: 0.9em;
+}
+</style>

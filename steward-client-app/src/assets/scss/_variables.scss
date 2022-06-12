@@ -4,17 +4,17 @@ $variable-prefix: "stwrd";
 
 
 /* desktop */
-$sidebar-open-width: 256px;
-$sidebar-minimized-width: 70px;
-$sidebar-menu-y-margin: 13px;
+$sidebar-open-width: 256px  !default;
+$sidebar-minimized-width: 70px  !default;
+$sidebar-menu-y-margin: 13px  !default;
 
-$base-transition: 100ms ease-in-out;
-$layout-transition:  all 100ms ease-in-out;
+$base-transition: 100ms ease-in-out  !default;
+$layout-transition:  all 100ms ease-in-out  !default;
 
-$topbar-height: 60px;
-$topbar-brand-width: 150px;
+$topbar-height: 65px  !default;
+$topbar-brand-width: 175px  !default;
 
-$content-border-radius-bottom-left: 40px;
+$content-border-radius-bottom-left: 40px  !default;
 
 /* colors */
 $sidebar-bg: transparent !default ;
@@ -22,7 +22,7 @@ $sidebar-bg: transparent !default ;
 $topbar-bg: #FCFCFC !default;
 
 $content-wrapper-bg:  #FCFCFC !default;
-$content-bg: #D9D9D9 !default;
+$content-bg: #F3F1EF !default;
 // $sidebar-bg-rgb: to-rgb($sidebar-bg);
 
 
@@ -31,4 +31,10 @@ $scrollbar-track-color: #ffffff  !default;
 $scrollbar-thumb-color: rgba(223, 223, 223, 1)  !default;
 $scrollbar-thumb-color-hidden: rgba(223, 223, 223, 0)  !default;
 $scrollbar-thumb-color-hover: rgb(200, 200, 200)  !default;
-$scrollbar-thumb-size: 12px  !default;
+$scrollbar-thumb-size:  12px !default;
+
+
+$font-family: 'Inter', Arial, Helvetica, sans-serif;
+$font-family-alt: 'Open Sans', Arial, Helvetica, sans-serif;
+
+$color-black: #262626;
