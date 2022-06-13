@@ -312,7 +312,9 @@ function toggle() {
             </BaseTopbar>
 
             <div class="content">
-                <RouterView />
+                <slot>
+                    <RouterView />
+                </slot>
             </div>
 
         </div>

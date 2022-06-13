@@ -31,7 +31,10 @@ function toggle() {
             <BaseSidebar ref="elNavSidebar" :is-full-layout="false" v-show="isSM == false">
 
                 <RouterLink to="/">HOME</RouterLink>
-                <RouterLink to="about">ABOUT</RouterLink>
+                <RouterLink to="/about">ABOUT</RouterLink>
+                <RouterLink to="/vehicles">Vehicles</RouterLink>
+                <RouterLink to="/vehicle/sdsd/profile">Vehicle Profile</RouterLink>
+                <RouterLink to="/vehicle/sdsd/gas-logs">Vehicle Gas Logs</RouterLink>
 
                 <div id="lipsum">
                     <p>
@@ -306,7 +309,9 @@ function toggle() {
             </BaseSidebar>
 
             <div class="content">
-                <RouterView />
+                <slot>
+                    <RouterView />
+                </slot>
             </div>
 
         </div>

@@ -53,9 +53,9 @@ const NavigationMenu: TNavigationMenu = [
         ]
     },
     {
-        name: 'drivers',
-        route: '/drivers',
-        title: "Drivers",
+        name: 'fleet-operations',
+        route: '/fleet-operations',
+        title: "Fleet Operations",
         children: [
 
         ]

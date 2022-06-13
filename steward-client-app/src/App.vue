@@ -1,33 +1,15 @@
 <script setup lang="ts">
-import type { Ref, InjectionKey } from 'vue';
 
-import useLayout from './composables/layout.composable'
-
-const AppWrapper = ref<HTMLElement | undefined>();
-const layoutComposable = useLayout();
-
-//provide('AppWrapper', () : Ref<HTMLElement> => document.getElementById("app-wrapper"));
-// provide('AppWrapper', (): HTMLElement | undefined => AppWrapper.value);
-
-
-const wrapperClasses = layoutComposable.classes;
 
 </script>
 
 <template>
-  <div ref="AppWrapper" :class="wrapperClasses">
-    <!-- <LayoutDefault></LayoutDefault> -->
-
-    <LayoutTopHeader></LayoutTopHeader>
-  </div>
-
+  <AppLayout>
+    <RouterView></RouterView>
+  </AppLayout>
 </template>
 
 <style lang="scss">
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
-@import "./assets/scss/_root.scss";
-
-@import "./assets/scss/_layout.scss";
-
 
 </style>
