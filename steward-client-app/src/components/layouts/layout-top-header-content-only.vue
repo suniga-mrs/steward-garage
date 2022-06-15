@@ -4,6 +4,8 @@ import { isSM } from '../../utilities/breakpoint.util';
 
 const elNavSidebar = ref<InstanceType<typeof BaseSideBar>>();
 
+console.log('Layout Top Header Content Only Created');
+
 function toggle() {
     elNavSidebar.value?.toggleSidebar();
 }
@@ -21,7 +23,7 @@ function toggle() {
             </template>
             <template #default>
                 <!-- <button type="button" @click="toggle">TOGGLE</button> -->
-                <BaseTopbarNavMenu></BaseTopbarNavMenu>
+                <TopbarNavMenu></TopbarNavMenu>
             </template>
         </BaseTopbar>
 

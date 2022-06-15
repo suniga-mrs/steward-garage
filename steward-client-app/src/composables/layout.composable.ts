@@ -1,4 +1,4 @@
-import { ref, reactive, type ComputedRef, type InjectionKey } from 'vue';
+import { ref, reactive, type ComputedRef } from 'vue';
 
 export interface ILayoutState {
     classes: Array<string>

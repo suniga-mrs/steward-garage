@@ -40,7 +40,7 @@ export default defineConfig({
 
     //https://github.com/antfu/unplugin-vue-components
     Components({
-      dirs: ['src/components'],
+      dirs: ['src/components', 'src/modules'],
       // valid file extensions for components.
       extensions: ['vue'],
       // search for subdirectories

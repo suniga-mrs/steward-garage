@@ -1,33 +1,15 @@
-<script lang="ts" setup>    
-import type BaseSideBar from '../ui/base-sidebar/base-sidebar.vue';
-import { isSM } from '../../utilities/breakpoint.util';
-
-console.log('Layout Default Created');
-
-const elNavSidebar = ref<InstanceType<typeof BaseSideBar>>();
-
-function toggle() {
-
-    console.log(elNavSidebar.value)
-    elNavSidebar.value?.toggleSidebar();
-}
-
+<script lang="ts" setup>
 
 </script>
 
-
 <template>
-    <div class="layout-wrapper d-flex flex-row flex-column-fluid">
-        <BaseSidebar ref="elNavSidebar" :is-full-layout="true" v-show="isSM == false">
-
-            <template #sidebar-brand>
-                <div class="layout-brand-logo d-flex align-items-center h-100">
-                    <BrandLogo1></BrandLogo1>
-                </div>
-            </template>
-
-            <RouterLink to="/">HOME</RouterLink>
-            <RouterLink to="about">ABOUT</RouterLink>
+    <BaseSidebar>
+        <template #default>
+            <!-- <RouterLink to="/">HOME</RouterLink>
+            <RouterLink to="/about">ABOUT</RouterLink>
+            <RouterLink to="/vehicles">Vehicles</RouterLink>
+            <RouterLink to="/vehicle/sdsd/profile">Vehicle Profile</RouterLink>
+            <RouterLink to="/vehicle/sdsd/gas-logs">Vehicle Gas Logs</RouterLink> -->
 
             <div id="lipsum">
                 <p>
@@ -298,36 +280,6 @@ function toggle() {
                     maximus est.
                 </p>
             </div>
-
-
-
-
-
-        </BaseSidebar>
-        <div class="d-flex flex-column content-wrapper">
-
-            <BaseTopbar :is-header="false">
-                <template #default>
-                    <!-- <button type="button" @click="toggle">TOGGLE</button> -->
-                    <TopbarNavMenu class="ps-4"></TopbarNavMenu>
-                </template>
-            </BaseTopbar>
-
-            <div class="content">
-                <slot>
-                    <RouterView />
-                </slot>
-            </div>
-
-        </div>
-    </div>
+        </template>
+    </BaseSidebar>
 </template>
-
-
-<style lang="scss" scoped>
-
-
-.layout-brand-logo {
-    font-size: 0.9em;
-}
-</style>

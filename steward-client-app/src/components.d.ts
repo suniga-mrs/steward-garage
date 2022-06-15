@@ -6,7 +6,9 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppLayout: typeof import('./components/layouts/app-layout.vue')['default']
+    BaseLink: typeof import('./components/ui/base-link/base-link.vue')['default']
     BaseSidebar: typeof import('./components/ui/base-sidebar/base-sidebar.vue')['default']
+    BaseSidebarMenuItem: typeof import('./components/ui/base-sidebar/base-sidebar-menu-item.vue')['default']
     BaseTopbar: typeof import('./components/ui/base-topbar/base-topbar.vue')['default']
     BaseTopbarNavMenu: typeof import('./components/ui/base-topbar-nav-menu/base-topbar-nav-menu.vue')['default']
     BrandLogo1: typeof import('./components/app/brand-logo/brand-logo-1.vue')['default']
@@ -15,6 +17,13 @@ declare module '@vue/runtime-core' {
     LayoutTopHeaderWithSidebar: typeof import('./components/layouts/layout-top-header-with-sidebar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SidebarNavMenu: typeof import('./components/app/sidebar-nav-menu/sidebar-nav-menu.vue')['default']
+    TestLoading: typeof import('./components/app/test-loading.vue')['default']
+    TopbarNavMenu: typeof import('./components/app/topbar-nav-menu/topbar-nav-menu.vue')['default']
+    VehicleGasLogView: typeof import('./modules/vehicles/views/VehicleGasLogView.vue')['default']
+    VehicleMainView: typeof import('./modules/vehicles/views/VehicleMainView.vue')['default']
+    VehicleProfileView: typeof import('./modules/vehicles/views/VehicleProfileView.vue')['default']
+    VehiclesListView: typeof import('./modules/vehicles/views/VehiclesListView.vue')['default']
   }
 }
 
