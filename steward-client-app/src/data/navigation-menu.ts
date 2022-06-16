@@ -4,20 +4,26 @@ import { defineAsyncComponent } from 'vue';
 
 const NavigationMenu: TNavigationItem[] = [
     {
+        route: '/',
+        name: 'home',
+        title: 'Home',
+        view: () => import('../views/HomeView.vue'),
+        layout: LayoutTopHeaderWithSidebar
+    },
+    {
         name: 'dashboard',
         title: "Dashboard",
         route: '/dashboard',
         view: () => import('../views/HomeView.vue'),
         layout: LayoutTopHeaderContentOnly
     },
-    // {
-    //     name: 'vehicles',
-    //     route: '/vehicles',
-    //     title: "Vehicles",
-    //     layout: LayoutTopHeaderWithSidebar,
-    //     view: () => import('../modules/vehicles/views/VehiclesListView.vue'),
-
-    // },
+    {
+        name: 'vehicles',
+        route: '/vehicles',
+        title: "Vehicles",
+        layout: LayoutTopHeaderContentOnly,
+        view: () => import('../modules/vehicles/views/VehiclesListView.vue')
+    },
     // {
     //     route: '/vehicle/:plateNo',
     //     title: "Vehicle Profile",
