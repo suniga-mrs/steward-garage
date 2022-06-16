@@ -1,16 +1,15 @@
 import type { INavigationItem, TNavigationItem } from '../ts/navigation';
 import { LayoutTopHeaderContentOnly, LayoutTopHeaderWithSidebar } from '../components/layouts';
 import { defineAsyncComponent } from 'vue';
+import SignInPageVue from '../pages/SignInPage.vue';
 
 const NavigationMenu: TNavigationItem[] = [
     {
         route: '/',
-        name: 'home',
-        title: 'Home',
+        name: 'landing',
+        title: 'Sign In',
         placement: [],
-        view: () => import('../views/HomeView.vue'),
-        layout: LayoutTopHeaderWithSidebar,
-
+        view: SignInPageVue,
     },
     {
         name: 'dashboard',
@@ -18,7 +17,7 @@ const NavigationMenu: TNavigationItem[] = [
         route: '/dashboard',
         placement: ['topbar'],
         layout: LayoutTopHeaderContentOnly,
-        view: () => import('../views/HomeView.vue'),
+        view: () => import('../modules/dashboard/views/DashboardView.vue'),
     },
     {
         name: 'vehicles',

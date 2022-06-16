@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     BaseTopbar: typeof import('./components/ui/base-topbar/base-topbar.vue')['default']
     BaseTopbarNavMenu: typeof import('./components/ui/base-topbar-nav-menu/base-topbar-nav-menu.vue')['default']
     BrandLogo1: typeof import('./components/app/brand-logo/brand-logo-1.vue')['default']
+    DashboardView: typeof import('./modules/dashboard/views/DashboardView.vue')['default']
     LayoutDefault: typeof import('./components/layouts/layout-default.vue')['default']
     LayoutTopHeaderContentOnly: typeof import('./components/layouts/layout-top-header-content-only.vue')['default']
     LayoutTopHeaderWithSidebar: typeof import('./components/layouts/layout-top-header-with-sidebar.vue')['default']

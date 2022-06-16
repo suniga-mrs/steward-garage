@@ -5,6 +5,7 @@ import type { INavigationItem, TNavigationItem, INavigationItemChildView } from 
 
 const currentNavMenuItem: Ref<TNavigationItem | null> = ref(null);
 const currParentNavMenuItem: Ref<TNavigationItem | null> = ref(null);
+const currChildrenNavMenu: Ref<TNavigationItem[]> = ref([]);
 
 export function useNavigationMenu() {
 
@@ -12,8 +13,6 @@ export function useNavigationMenu() {
     for (let item of NavMenuData) {
         mainMenu[item.name] = item;
     }
-
-    const currChildrenNavMenu = computed(() => currParentNavMenuItem.value?.children || []);
 
     function getRoutes(): RouteRecordRaw[] {
 
@@ -66,9 +65,28 @@ export function useNavigationMenu() {
         return routes
     }
 
-    function setCurrentParentNavMenu(mainMenuRouteName: string) {
+
+    function setCurrentChildrenNavMenu(mainMenuRouteName: string | null) {
+
+        mainMenuRouteName = mainMenuRouteName ?? '';
+
+        if (mainMenu.hasOwnProperty(mainMenuRouteName)) {
+            currChildrenNavMenu.value = mainMenu[mainMenuRouteName].children || [];
+        }
+        else {
+            currChildrenNavMenu.value = [];
+        }
+    }
+
+    function setCurrentParentNavMenu(mainMenuRouteName: string | null) {
+
+        mainMenuRouteName = mainMenuRouteName ?? '';
+
         if (mainMenu.hasOwnProperty(mainMenuRouteName)) {
             currParentNavMenuItem.value = mainMenu[mainMenuRouteName];
+        }
+        else {
+            currParentNavMenuItem.value = null;
         }
     }
 
@@ -79,6 +97,7 @@ export function useNavigationMenu() {
         getRoutes,
         getRouteByPlacement,
         setCurrentParentNavMenu,
+        setCurrentChildrenNavMenu,
     }
 
 }

@@ -2,13 +2,18 @@
 import { useNavigationMenu } from '../../../composables/navmenu.composable.';
 
 //Pass data to a state management
-const { setCurrentParentNavMenu } = useNavigationMenu();
+const { setCurrentParentNavMenu, setCurrentChildrenNavMenu } = useNavigationMenu();
 
 onMounted(() => { 
+    setCurrentParentNavMenu('vehicles');
+    setCurrentChildrenNavMenu('vehicle');
+})
+
+onUnmounted(() => {
     // console.log($route.)
     // console.log('Main view mounted')
-    
-    setCurrentParentNavMenu('vehicle');
+
+    setCurrentParentNavMenu(null);
 
 })
 </script>

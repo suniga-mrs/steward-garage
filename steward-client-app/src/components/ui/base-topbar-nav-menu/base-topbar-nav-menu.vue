@@ -13,10 +13,7 @@ const props = defineProps<{
 <template>
     <nav class="topbar-nav-menu" v-show="!isSM">
         <ul class="topbar-nav-menu-list">
-            <li tabindex="1" v-for="(item, index) in menu" :key="item.route" @click="">
-            <!-- {{item.title}} -->
-              <slot name="navMenuItem" :menu-item="item"></slot>
-            </li>
+            <slot name="navMenuItem" :menu="menu"></slot>        
         </ul>
     </nav>
 </template>
@@ -26,11 +23,22 @@ const props = defineProps<{
 
 
 
+
 @import '../../../assets/scss/variables';
 
+@mixin topbar-menu-link-active-style {
+    color: $color-black;
+
+    &::after {
+        background-color: $color-black;
+    }
+}
 
 
 @include media-breakpoint-up(sm) {
+
+
+
     .topbar-nav-menu {
         height: 100%;
 
@@ -42,11 +50,11 @@ const props = defineProps<{
             display: flex;
 
             > li {               
-                margin: 0 0.5em;
-               
+                margin: 0 0.5em;               
                 position: relative;
 
-                > a {
+                > a,
+                > .topbar-menu-link {
                     cursor: pointer;
                     height: 100%;
                     padding: 0 1em;                       
@@ -55,30 +63,35 @@ const props = defineProps<{
                     font-weight: 600;
                     display: flex;
                     align-items: center;
-                }
 
-
-                &::after {
-                    content: '';
-                    display: block;
-                    width: 100%;
-                    height: 5px;
-                    background-color: transparent;
-                    bottom: 0;
-                    left: 0;
-                    position: absolute;
-                    transition: $base-transition;
-                }
-
-                //temp active
-                &.active,
-                &:hover,
-                &:active,
-                &:focus {
                     &::after {
-                        background-color: $color-black;
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 5px;
+                        background-color: transparent;
+                        bottom: 0;
+                        left: 0;
+                        position: absolute;
+                        transition: $base-transition;
+                    }
+
+                    //temp active
+                    &.active,                    
+                    &:hover,
+                    &:active,
+                    &:focus {
+                        @include topbar-menu-link-active-style;
                     }
                 }
+            
+                &.parent-active {
+                    > a,
+                    > .topbar-menu-link {
+                        @include topbar-menu-link-active-style;
+                    }
+                }
+
             }
         }
     }
