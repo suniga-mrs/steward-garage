@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     SidebarNavMenu: typeof import('./components/app/sidebar-nav-menu/sidebar-nav-menu.vue')['default']
     TestLoading: typeof import('./components/app/test-loading.vue')['default']
     TopbarNavMenu: typeof import('./components/app/topbar-nav-menu/topbar-nav-menu.vue')['default']
+    VehicleCreateView: typeof import('./modules/vehicles/views/VehicleCreateView.vue')['default']
     VehicleGasLogView: typeof import('./modules/vehicles/views/VehicleGasLogView.vue')['default']
     VehicleMainView: typeof import('./modules/vehicles/views/VehicleMainView.vue')['default']
     VehicleProfileView: typeof import('./modules/vehicles/views/VehicleProfileView.vue')['default']

@@ -4,11 +4,16 @@ import NavMenuData from '../data/navigation-menu';
 import type { INavigationItem, TNavigationItem, INavigationItemChildView } from '../ts/navigation';
 
 const currentNavMenuItem: Ref<TNavigationItem | null> = ref(null);
+const currParentNavMenuItem: Ref<TNavigationItem | null> = ref(null);
 
 export function useNavigationMenu() {
 
-    const mainMenu = computed(() => NavMenuData);
-    const subMenu = computed(() => currentNavMenuItem.value?.children || []);
+    let mainMenu: { [key: string]: TNavigationItem; } = {};
+    for (let item of NavMenuData) {
+        mainMenu[item.name] = item;
+    }
+
+    const currChildrenNavMenu = computed(() => currParentNavMenuItem.value?.children || []);
 
     function getRoutes(): RouteRecordRaw[] {
 
@@ -16,46 +21,64 @@ export function useNavigationMenu() {
 
             const childrenRoutes: RouteRecordRaw[] = [];
 
-            if (item.children != null) {
+
+
+            if (item.children) {
                 item.children.map(childRoute => {
-                    return {
-                        name: childRoute.name,
-                        path: childRoute.route,
-                        component: childRoute.view
-                    }
+                    childrenRoutes.push(mapToRouterObj(childRoute));
+
                 });
             }
-            if (item.view != null) {
-                const routeItem: RouteRecordRaw = {
-                    name: item.name,
-                    path: item.route,
-                    component: item.view,
-                    meta: { layout: item.layout },
-                    children: childrenRoutes
-                }
-                return routeItem;
-            }
-            else {
-                const routeItem: RouteRecordRaw = {
-                    name: item.name,
-                    path: item.route,
-                    redirect: item.redirect,
-                    children: childrenRoutes
-                }
-                return routeItem;
-            }
+
+            const routeItem = mapToRouterObj(item, childrenRoutes);
+            return routeItem;
 
         })
+
+        // console.log(routes);
 
         return routes
     }
 
+    function mapToRouterObj(item: TNavigationItem, childrenRoutes: RouteRecordRaw[] | undefined = undefined) {
+        const routeItem: RouteRecordRaw = {
+            name: item.name,
+            path: item.route,
+            component: item.view,
+            redirect: item.redirect,
+            meta: { layout: item.layout },
+            children: childrenRoutes
+        }
+        return routeItem;
+    }
+
+    function getRouteByPlacement(placement: string): TNavigationItem[] {
+        const routes: TNavigationItem[] =
+            NavMenuData.filter(item => item.placement?.includes(placement))
+        // .map(item => {
+        //     const childrenRoutes: RouteRecordRaw[] = [];
+        //     const routeItem = mapToRouterObj(item, childrenRoutes);
+        //     return routeItem;
+        // })
+
+        // console.log(routes);
+
+        return routes
+    }
+
+    function setCurrentParentNavMenu(mainMenuRouteName: string) {
+        if (mainMenu.hasOwnProperty(mainMenuRouteName)) {
+            currParentNavMenuItem.value = mainMenu[mainMenuRouteName];
+        }
+    }
+
     return {
-        mainMenu, subMenu,
+        currentNavMenuItem,
+        currParentNavMenuItem,
+        currChildrenNavMenu,
         getRoutes,
-        setCurrentNavMenu(mainMenuItem: TNavigationItem) {
-            currentNavMenuItem.value = mainMenuItem;
-        },
+        getRouteByPlacement,
+        setCurrentParentNavMenu,
     }
 
 }

@@ -3,14 +3,9 @@
 import { RouterLink } from 'vue-router';
 import type { RouterLinkProps } from 'vue-router';
 
-export interface IBaselinkProps extends RouterLinkProps {
-    message?: string,
-    anotherProperty?: string
-}
+export interface IBaselinkProps extends RouterLinkProps {}
 
 const props = defineProps<IBaselinkProps>();
-
-
 
 const isExternal = computed(() => {
     return typeof props.to === 'string' && props.to.startsWith('http');

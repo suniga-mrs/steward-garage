@@ -8,31 +8,32 @@ declare interface IBaseNavigationItem {
     name: string,
     route: string,
     title: string,
+    placement?: string[],
     children?: IBaseNavigationItem[]
 }
 
 export declare interface INavigationItemChildView extends IBaseNavigationItem {
     view: RouteComponent,
     children?: INavigationItemChildView[]
-    layout?: never
+    layout?: Component
     redirect?: never,
 }
 
 declare interface INavigationItemView extends IBaseNavigationItem {
     layout: Component,
     view: RouteComponent,
-    redirect?: never,
+    redirect?: RouteRecordRedirectOption | undefined,
     children?: INavigationItemChildView[]
 }
 
 declare interface INavigationItemRedirect extends IBaseNavigationItem {
     layout: Component,
     redirect: RouteRecordRedirectOption,
-    view?: never,
+    view?: Component | undefined,
     children?: INavigationItemChildView[]
 }
 
-export type TNavigationItem = INavigationItemView | INavigationItemRedirect;
+export type TNavigationItem = INavigationItemView | INavigationItemChildView;
 
 export interface INavigationItem {
     name: string,

@@ -10,5 +10,12 @@
     {
       "path": "./tsconfig.vitest.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "lib": [
+      "esnext",
+      "dom",
+      "ES2021"
+    ]
+  },
 }

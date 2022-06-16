@@ -7,14 +7,6 @@ const props = defineProps<{
     menu: Array<INavigationItem>
 }>();
 
-// type-based
-const emit = defineEmits<{
-    (e: 'navigate', menuItem: INavigationItem): void
-}>()
-
-function navigateToMenuItemRoute(item: INavigationItem) {
-    emit('navigate', item)
-}
 
 </script>
 
@@ -23,7 +15,7 @@ function navigateToMenuItemRoute(item: INavigationItem) {
         <ul class="topbar-nav-menu-list">
             <li tabindex="1" v-for="(item, index) in menu" :key="item.route" @click="">
             <!-- {{item.title}} -->
-                <BaseLink :to="{ name: item.name }" @click="navigateToMenuItemRoute(item)">{{ item.title }}</BaseLink>
+              <slot name="navMenuItem" :menu-item="item"></slot>
             </li>
         </ul>
     </nav>

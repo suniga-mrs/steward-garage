@@ -2,6 +2,8 @@
 
 $variable-prefix: "stwrd";
 
+$color-black: #262626;
+
 
 /* desktop */
 $sidebar-open-width: 256px  !default;
@@ -20,6 +22,7 @@ $content-border-radius-bottom-left: 40px  !default;
 $sidebar-bg: transparent !default ;
 
 $topbar-bg: #FCFCFC !default;
+$topbar-nav-item-active: $color-black;
 
 $content-wrapper-bg:  #FCFCFC !default;
 $content-bg: #F3F1EF !default;
@@ -36,5 +39,3 @@ $scrollbar-thumb-size:  12px !default;
 
 $font-family: 'Inter', Arial, Helvetica, sans-serif;
 $font-family-alt: 'Open Sans', Arial, Helvetica, sans-serif;
-
-$color-black: #262626;

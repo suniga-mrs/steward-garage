@@ -1,17 +1,25 @@
 <script lang="ts" setup>
+import { useNavigationMenu } from '../../../composables/navmenu.composable.';
+
+//Pass data to a state management
+const { currChildrenNavMenu } = useNavigationMenu();
 
 </script>
 
 <template>
     <BaseSidebar>
         <template #default>
+            <RouterLink v-for="(navItem)  in currChildrenNavMenu" :key="navItem.name" :to="{ name: navItem.name}">
+                {{ navItem.title }}
+            </RouterLink>
+
             <!-- <RouterLink to="/">HOME</RouterLink>
             <RouterLink to="/about">ABOUT</RouterLink>
             <RouterLink to="/vehicles">Vehicles</RouterLink>
             <RouterLink to="/vehicle/sdsd/profile">Vehicle Profile</RouterLink>
             <RouterLink to="/vehicle/sdsd/gas-logs">Vehicle Gas Logs</RouterLink> -->
 
-            <div id="lipsum">
+            <!-- <div id="lipsum">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus enim blandit mauris
                     auctor pharetra.
@@ -279,7 +287,7 @@
                     tempus. Nam sed
                     maximus est.
                 </p>
-            </div>
+            </div> -->
         </template>
     </BaseSidebar>
 </template>

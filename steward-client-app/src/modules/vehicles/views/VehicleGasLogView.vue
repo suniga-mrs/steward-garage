@@ -9,5 +9,6 @@ const $route = useRoute();
 <template>
     <div>
         Vehicles Gas Log
+        <RouterLink :to="{ name:'vehicles' }">LINK</RouterLink>
     </div>
 </template>
