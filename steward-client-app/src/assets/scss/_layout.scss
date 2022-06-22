@@ -14,11 +14,14 @@ body {
     flex: 1 0 auto;
 }
 
+.layout-brand-logo {
+    font-size: 0.9em;
+}
 
 .content-wrapper {
     flex: 1 auto;
     transition: $layout-transition;
-    background: user_root_var('content-wrapper-bg');;
+    background: user_root_var('content-wrapper-bg');
 
     .content {
         overflow-y: auto;

@@ -6,6 +6,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppLayout: typeof import('./components/layouts/app-layout.vue')['default']
+    BaseInputField: typeof import('./components/ui/base-input-field/base-input-field.vue')['default']
     BaseLink: typeof import('./components/ui/base-link/base-link.vue')['default']
     BaseSidebar: typeof import('./components/ui/base-sidebar/base-sidebar.vue')['default']
     BaseSidebarMenuItem: typeof import('./components/ui/base-sidebar/base-sidebar-menu-item.vue')['default']

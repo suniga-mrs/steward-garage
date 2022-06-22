@@ -44,7 +44,5 @@ function toggle() {
 
 <style lang="scss" scoped>
 
-.layout-brand-logo {
-    font-size: 0.9em;
-}
+
 </style>

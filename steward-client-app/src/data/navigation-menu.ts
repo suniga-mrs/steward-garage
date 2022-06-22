@@ -13,7 +13,7 @@ const NavigationMenu: TNavigationItem[] = [
     },
     {
         name: 'dashboard',
-        title: "Dashboard",
+        title: 'Dashboard',
         route: '/dashboard',
         placement: ['topbar'],
         layout: LayoutTopHeaderContentOnly,
@@ -22,12 +22,12 @@ const NavigationMenu: TNavigationItem[] = [
     {
         name: 'vehicles',
         route: '/vehicles',
-        title: "Vehicles",
+        title: 'Vehicles',
         placement: ['topbar'],
         layout: LayoutTopHeaderContentOnly,
         view: () => import('../modules/vehicles/views/VehiclesListView.vue'),
 
-        // redirect: { name: "vehicle-ledger" },
+        // redirect: { name: 'vehicle-ledger' },
         children: [
             // {
             //     name: 'vehicle-ledger',
@@ -57,16 +57,16 @@ const NavigationMenu: TNavigationItem[] = [
     },
     {
         route: '/vehicle/:plateNo',
-        title: "Vehicle",
+        title: 'Vehicle',
         name: 'vehicle',
         layout: LayoutTopHeaderWithSidebar,
         view: () => import('../modules/vehicles/views/VehicleMainView.vue'),
-        redirect: { name: "vehicle-profile" },
+        redirect: { name: 'vehicle-profile' },
         children: [
             {
                 name: 'vehicle-profile',
                 route: 'profile',
-                title: "Profile",
+                title: 'Profile',
                 layout: LayoutTopHeaderWithSidebar,
                 view: () => import('../modules/vehicles/views/VehicleProfileView.vue'),
             },
@@ -74,37 +74,49 @@ const NavigationMenu: TNavigationItem[] = [
                 name: 'vehicle-gas-logs',
                 route: 'gas-logs',
                 title: 'Gas Logs',
+                placement: ['sidebar'],
+                layout: LayoutTopHeaderWithSidebar,
+                view: () => import('../modules/vehicles/views/VehicleGasLogView.vue'),
+            },
+            {
+                name: 'maintenance-logs',
+                route: '/maintenance-logs',
+                title: 'Maintenance Logs',
+                placement: ['sidebar'],
+                layout: LayoutTopHeaderWithSidebar,
+                view: () => import('../modules/vehicles/views/VehicleGasLogView.vue'),
+            },
+            {
+                name: 'odometer-logs',
+                route: '/odometer-logs',
+                title: 'Odometer Logs',
+                placement: ['sidebar'],
+                layout: LayoutTopHeaderWithSidebar,
+                view: () => import('../modules/vehicles/views/VehicleGasLogView.vue'),
+            },
+            {
+                name: 'trip-logs',
+                route: '/trip-logs',
+                title: 'Trip Logs',
+                placement: ['sidebar'],
+                layout: LayoutTopHeaderWithSidebar,
+                view: () => import('../modules/vehicles/views/VehicleGasLogView.vue'),
+            },
+            {
+                name: 'incident-logs',
+                route: '/incident-report',
+                title: 'Incident Reports',
+                placement: ['sidebar'],
                 layout: LayoutTopHeaderWithSidebar,
                 view: () => import('../modules/vehicles/views/VehicleGasLogView.vue'),
             }
-            // {
-            //     name: 'maintenance-logs',
-            //     route: '/maintenance-logs',
-            //     title: 'Maintenance Logs',
-            //     view: () => import('../views/AboutView.vue'),
-            // }, {
-            //     name: 'odometer-logs',
-            //     route: '/odometer-logs',
-            //     title: 'Odometer Logs',
-            //     view: () => import('../views/AboutView.vue'),
-            // }, {
-            //     name: 'trip-logs',
-            //     route: '/trip-logs',
-            //     title: 'Trip Logs',
-            //     view: () => import('../views/AboutView.vue'),
-            // }, {
-            //     name: 'incident-logs',
-            //     route: '/incident-report',
-            //     title: 'Incident Reports',
-            //     view: () => import('../views/AboutView.vue'),
-            // }
         ]
     },
 
     // {
     //     name: 'drivers',
     //     route: '/drivers',
-    //     title: "Drivers",
+    //     title: 'Drivers',
     //     children: [
 
     //     ]
@@ -112,7 +124,7 @@ const NavigationMenu: TNavigationItem[] = [
     // {
     //     name: 'data-references',
     //     route: '/references',
-    //     title: "References",
+    //     title: 'References',
     //     children: [
 
     //     ]
@@ -120,7 +132,7 @@ const NavigationMenu: TNavigationItem[] = [
     // {
     //     name: 'fleet-operations',
     //     route: '/fleet-operations',
-    //     title: "Fleet Operations",
+    //     title: 'Fleet Operations',
     //     children: [
 
     //     ]

@@ -1,6 +1,6 @@
 @import '../../../node_modules/bootstrap/scss/bootstrap-utilities.scss';
 
-$variable-prefix: "stwrd";
+$variable-prefix: "stwrd-";
 
 $color-black: #262626;
 
@@ -39,3 +39,6 @@ $scrollbar-thumb-size:  12px !default;
 
 $font-family: 'Inter', Arial, Helvetica, sans-serif;
 $font-family-alt: 'Open Sans', Arial, Helvetica, sans-serif;
+
+
+$font-family-base: $font-family;

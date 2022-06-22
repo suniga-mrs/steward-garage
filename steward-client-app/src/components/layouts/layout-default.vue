@@ -298,11 +298,7 @@ function toggle() {
                     maximus est.
                 </p>
             </div>
-
-
-
-
-
+            
         </BaseSidebar>
         <div class="d-flex flex-column content-wrapper">
 
@@ -325,8 +321,6 @@ function toggle() {
 
 
 <style lang="scss" scoped>
-
-
 .layout-brand-logo {
     font-size: 0.9em;
 }

@@ -1,7 +1,4 @@
-<script setup lang="ts">
-
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <AppLayout>
@@ -10,6 +7,5 @@
 </template>
 
 <style lang="scss">
-@import "../node_modules/bootstrap/dist/css/bootstrap.css";
-
+@import "./assets/scss/vendors/bootstrap";
 </style>
