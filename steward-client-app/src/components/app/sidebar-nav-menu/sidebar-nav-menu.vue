@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useNavigationMenu } from "../../../composables/navmenu.composable.";
+import { useNavigationMenu } from '../../../composables/navmenu.composable.';
 
 //Pass data to a state management
 const { currChildrenNavMenu } = useNavigationMenu();
@@ -11,10 +11,13 @@ const { currChildrenNavMenu } = useNavigationMenu();
       <ul class="sidebar-menu-list">
         <li
           v-for="navItem in currChildrenNavMenu"
-          :key="navItem.name"
           v-show="navItem.placement?.includes('sidebar')"
+          :key="navItem.name"
         >
-          <BaseLink :to="{ name: navItem.name }" class="sidebar-menu-list-item-link">
+          <BaseLink
+            :to="{ name: navItem.name }"
+            class="sidebar-menu-list-item-link"
+          >
             {{ navItem.title }}
           </BaseLink>
         </li>
@@ -24,12 +27,11 @@ const { currChildrenNavMenu } = useNavigationMenu();
 </template>
 
 <style lang="scss">
-@import "../../../assets/scss/util/root-util";
+@import '../../../assets/scss/util/root-util';
 $sidebar-menu-item-height: 40px;
 $sidebar-menu-item-margin-y: 2.5px;
 
-$sidebar-menu-item-link-padding-left: 1em;
-
+$sidebar-menu-item-link-padding-left: 1.5em;
 .sidebar-menu-list {
   list-style: none;
 
@@ -52,7 +54,8 @@ $sidebar-menu-item-link-padding-left: 1em;
   &:hover,
   &:focus,
   &:active {
-    background-color: user_root_var("content-bg");
+    background-color: user_root_var('content-bg');
+    color: $color-black;
   }
 }
 </style>

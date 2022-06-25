@@ -1,14 +1,13 @@
-import { fileURLToPath, URL } from 'url'
+import { fileURLToPath, URL } from 'url';
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
-import Components from 'unplugin-vue-components/vite'
-import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite';
+import AutoImport from 'unplugin-auto-import/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -18,9 +17,10 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@/assets/scss/vendors/bootstrap-utilities.scss";`
-      }
-    }
+        additionalData:
+          '@import "@/assets/scss/vendors/bootstrap-utilities.scss";',
+      },
+    },
   },
   plugins: [
     vue(),
@@ -30,11 +30,7 @@ export default defineConfig({
       eslintrc: {
         enabled: true, // <-- this
       },
-      imports: [
-        'vue',
-        'vue-router',
-        '@vueuse/core',
-      ],
+      imports: ['vue', 'vue-router', '@vueuse/core'],
       dts: 'src/auto-imports.d.ts',
     }),
 
@@ -47,9 +43,12 @@ export default defineConfig({
       deep: true,
       // filters for transforming targets
       include: [/\.vue$/, /\.vue\?vue/],
-      exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
+      exclude: [
+        /[\\/]node_modules[\\/]/,
+        /[\\/]\.git[\\/]/,
+        /[\\/]\.nuxt[\\/]/,
+      ],
       dts: 'src/components.d.ts',
     }),
   ],
 });
-

@@ -6,6 +6,10 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppLayout: typeof import('./components/layouts/app-layout.vue')['default']
+    BaseDatatable: typeof import('./components/ui/base-datatable/base-datatable.vue')['default']
+    BaseDatatableTableBody: typeof import('./components/ui/base-datatable/base-datatable-table-body.vue')['default']
+    BaseDatatableTableFoot: typeof import('./components/ui/base-datatable/base-datatable-table-foot.vue')['default']
+    BaseDatatableTableHead: typeof import('./components/ui/base-datatable/base-datatable-table-head.vue')['default']
     BaseInputField: typeof import('./components/ui/base-input-field/base-input-field.vue')['default']
     BaseLink: typeof import('./components/ui/base-link/base-link.vue')['default']
     BaseSidebar: typeof import('./components/ui/base-sidebar/base-sidebar.vue')['default']

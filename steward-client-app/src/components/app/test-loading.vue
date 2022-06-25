@@ -1,3 +1,3 @@
 <template>
-    <div>LOADING COMPONENT....</div>
+  <div>LOADING COMPONENT....</div>
 </template>

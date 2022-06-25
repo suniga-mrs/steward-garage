@@ -1,5 +1,3 @@
 <script lang="ts" setup></script>
 
-<template>
-    CREATE VEHICLE
-</template>
+<template>CREATE VEHICLE</template>

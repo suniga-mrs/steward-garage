@@ -7,5 +7,6 @@
 </template>
 
 <style lang="scss">
-@import "./assets/scss/vendors/bootstrap";
+@import './assets/scss/vendors/bootstrap';
+@import '../node_modules/perfect-scrollbar/css/perfect-scrollbar.css';
 </style>
