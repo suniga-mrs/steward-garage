@@ -15,9 +15,11 @@ export interface TDatatableDataRemoteOption {
   type: 'remote';
   source: {
     url: string;
-    param?: any | never;
+    method?: 'GET' | 'POST';
+    params?: Record<string, any>;
     uniqueKey?: any;
-    map?: (rawData: any) => any[]
+    pagingMap?: (page: number, perPage: number) => Record<string, any>,
+    mapApiReponse?: (rawData: any) => { data: any[], pagination: { page: number, total: number, perPage: number } }
   };
 }
 

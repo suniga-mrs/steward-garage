@@ -1,7 +1,8 @@
 import type { TDatatableOptions, TData } from "./datatable";
 import { merge } from "../../../utilities/function.util";
+import useHttpClient from "../../../utilities/http-client.util";
 
-export const dtDefaulOptions: TDatatableOptions = {
+export const dtDefaulOptions = {
   data: {
     type: 'local',
     source: [],
@@ -37,8 +38,14 @@ export const dtClasses = {
 };
 export function useDatatable(options: TDatatableOptions) {
 
+  const _httpClient = useHttpClient({
+    timeout: 60000,
+    baseUrl: "",
+  })
 
-  const dtOptions = reactive(merge(unref(dtDefaulOptions), options));
+  console.log(options);
+
+  const dtOptions: TDatatableOptions = readonly(merge(unref(dtDefaulOptions), options));
 
 
   const isLocal = dtOptions.data?.type == "local";
@@ -61,61 +68,107 @@ export function useDatatable(options: TDatatableOptions) {
   const dtState = reactive<{
     dataSet: any[] | TData;
     originalDataSet: any[] | TData,
+    loadingData: boolean,
     API: {
-      response: any,
+      // response: any,
       url: string,
       querySource: Record<string, any>,
     }
   }>({
     dataSet: [],
     originalDataSet: [],
-    // loadingData: false,
+    loadingData: false,
 
     API: {
-      response: null,
+      // response: null,
       url: "",
       querySource: {},
     }
 
   });
 
+  function updateDataSet(dataSet: any[]) {
+
+    if (isLocal) {
+      dtState.dataSet = dataSet;
+    }
+    else {
+      dtState.dataSet = dataSet;
+      dtState.originalDataSet = dataSet;
+    }
+
+  }
+
+
   async function getRemoteData() {
 
+    let url = unref(dtState.API.url)
+    let query = unref(dtState.API.querySource);
+    let method = dtOptions.data.type == 'remote' && dtOptions.data.source.method ? dtOptions.data.source.method : "GET";
 
-    // let url = unref(dtState.API.url)
-    // let query = unref(dtState.API.querySource);
+    dtState.loadingData = true;
 
-    // dtState.loadingData = true;
+    if (method == "GET") {
+      let _getResponse = await _httpClient.get({
+        url: url,
+        data: query
+      });
+      handleApiResponse(_getResponse);
+    }
+    else {
+      let _postResponse = await _httpClient.post({
+        url: url,
+        data: query,
+      })
+      handleApiResponse(_postResponse);
+    }
 
-    // await axios.get(url, {
-    //   params: query
-    // })
-    //   .then(function (response) {
+    function handleApiResponse(apiResponse: any) {
 
-    //     console.log(response);
+      if (dtOptions.data.type == 'remote')
+        //TODO: Status code checking
+        if (
+          dtOptions.data.source?.mapApiReponse
+          && typeof dtOptions.data.source.mapApiReponse == 'function'
+        ) {
+          const _mappedData = dtOptions.data.source.mapApiReponse(apiResponse.data);
+          setPaging({
+            total: _mappedData.pagination.total
+          })
+          updateDataSet(_mappedData.data);
+        }
+        else {
+          if (apiResponse.data?.data) {
 
-    //     dtState.API.response = response.data;
+            let _metaData = apiResponse.data?.meta || { total: 0 }
 
-    //     updateRemoteData();
+            setPaging({
+              total: _metaData.total
+            })
 
-    //   })
-    //   .catch(function (error) {
-    //     console.error(error);
-    //   })
-    //   .then(function () {
-    //     // always executed
+            updateDataSet(apiResponse.data.data);
 
-    //     dtState.loadingData = false;
+          }
+          else {
+            //TODO: Throw error
+          }
+        }
 
-    //   });
+    }
   }
 
   onBeforeMount(() => {
-    setInitialLocalData();
-    // setInitialRemoteData();
+
+    if (dtOptions.data.type == 'local') {
+      setInitialLocalData();
+    }
+    else if (dtOptions.data.type == 'remote') {
+      setInitialRemoteData();
+    }
+
   });
 
-  function setPaging({ page = 0, perPage = 0, total = 0, pages = 0 }) {
+  function setPaging({ page = 0, perPage = 0, total = undefined }) {
     paging.page = page ? unref(page) : paging.page;
     paging.perPage = perPage ? unref(perPage) : paging.perPage;
 
@@ -123,16 +176,15 @@ export function useDatatable(options: TDatatableOptions) {
       paging.total = dtState.originalDataSet.length;
     } else {
       paging.total = total != undefined ? unref(total) : paging.total;
-      paging.pages = pages != undefined ? unref(pages) : paging.pages;
     }
 
     paging.pages = Math.ceil(paging.total / paging.perPage);
-
     const _pageButtonNumbers =
       dtOptions?.layout?.pagination?.pageButtonsNumber ||
       dtDefaulOptions.layout?.pagination?.pageButtonsNumber || 0;
 
-    //set pageNumbers
+
+    //Set pageNumbers
     let endPageNumber = Math.ceil(paging.page / _pageButtonNumbers) * _pageButtonNumbers;
     let startPageNumber = endPageNumber - _pageButtonNumbers;
 
@@ -143,33 +195,47 @@ export function useDatatable(options: TDatatableOptions) {
       startPageNumber = 0;
     }
 
-    paging.pageNumbers = [];
+
+    let _pagingNumbers = [];
 
     for (let x = startPageNumber; x < (endPageNumber || 1); x++) {
       const pageNumber = x + 1;
-      paging.pageNumbers.push(pageNumber);
+      _pagingNumbers.push(pageNumber);
     }
 
-    let infoEnd =
-      paging.page == paging.pages ? paging.total : paging.page * paging.perPage;
-    infoEnd = infoEnd > paging.total ? paging.total : infoEnd;
+    for (let i = 0; i < _pagingNumbers.length; i++) {
+      paging.pageNumbers[i] = _pagingNumbers[i]
+    }
 
-    let infoStart = paging.total != 0 ? infoEnd - (paging.perPage - 1) : 0;
-    infoStart = infoStart > 0 ? infoStart : paging.total >= 1 ? 1 : 0;
+    if (paging.total != 0) {
+      //Set Info
+      let infoEnd =
+        paging.page == paging.pages ? paging.total : paging.page * paging.perPage;
+      infoEnd = infoEnd > paging.total ? paging.total : infoEnd;
 
-    const _pageInfo =
-      dtOptions?.textPlaceholder?.pageInfo || dtDefaulOptions?.textPlaceholder?.pageInfo || "";
+      let infoStart = paging.total != 0 ? infoEnd - (paging.perPage - 1) : 0;
+      infoStart = infoStart > 0 ? infoStart : paging.total >= 1 ? 1 : 0;
 
-    paging.pageInfo = _pageInfo
-      .replace(/{{total}}/g, paging.total.toString())
-      .replace(/{{start}}/g, infoStart.toString())
-      .replace(/{{end}}/g, infoEnd.toString());
+      const _pageInfo =
+        dtOptions?.textPlaceholder?.pageInfo || dtDefaulOptions?.textPlaceholder?.pageInfo || "";
+
+      let _info = _pageInfo
+        .replace(/{{total}}/g, paging.total.toString())
+        .replace(/{{start}}/g, infoStart.toString())
+        .replace(/{{end}}/g, infoEnd.toString());
+
+      paging.pageInfo = _info;
+
+    }
+    else {
+      paging.pageInfo = "";
+    }
   }
 
   function setInitialLocalData() {
     if (isLocal) {
+
       dtState.dataSet = dtOptions.data.source;
-      dtState.originalDataSet = dtOptions.data.source;
 
       const _pageSize =
         dtOptions?.layout?.pagination?.pageSize ||
@@ -182,26 +248,26 @@ export function useDatatable(options: TDatatableOptions) {
     }
   }
 
-  // async function setInitialRemoteData() {
+  async function setInitialRemoteData() {
 
-  //   //create paging 
-  //   setPaging({ page: 1, perPage: dtOptions.layout?.pagination?.pageSize });
+    if (dtOptions.data.type == "remote") {
 
-  //   dtState.API.url = dtOptions.data.source?.url || "";
-  //   setDataSourceQuery(dtOptions.data.source?.params)
+      setPaging({ page: 1, perPage: dtOptions.layout?.pagination?.pageSize });
+      dtState.API.url = dtOptions.data.source?.url || "";
+      setDataSourceQuery(dtOptions.data.source?.params || {})
+      getRemoteData();
 
+    }
 
-
-  //   getRemoteData();
-  // }
+  }
 
   function updateLocalData() {
     const start = Math.max(paging.perPage * (paging.page - 1), 0);
     const end = Math.min(start + paging.perPage, paging.total);
 
-    // console.log(start, end);
-    // console.log(start, end);
-    dtState.dataSet = dtState.originalDataSet.slice(start, end);
+    let localDataSet = dtState.originalDataSet.slice(start, end);
+
+    updateDataSet(localDataSet);
   }
 
   function goToPage(page: number) {
@@ -215,10 +281,33 @@ export function useDatatable(options: TDatatableOptions) {
     if (isLocal) {
       updateLocalData();
     } else {
-      // setDataSourceQuery();
-      // getRemoteData();
-      // updateRemoteData();
+      setDataSourceQuery(dtState.API.querySource);
+      getRemoteData();
     }
+  }
+
+  function setDataSourceQuery(query: Record<string, any>) {
+
+    if (dtOptions.data.type == 'remote') {
+
+      let _paging: Record<string, any> = {
+        page: paging.page,
+        perPage: paging.perPage,
+        sortOrder: '',
+        sortField: '',
+      }
+
+      if (dtOptions.data.source.pagingMap) {
+        _paging = dtOptions.data.source.pagingMap(paging.page, paging.perPage)
+      }
+
+      let _params = { ...unref(dtOptions.data.source?.params) }
+
+      dtState.API.querySource = merge(merge(_params, unref(query), _paging))
+
+    }
+
+
   }
 
   return {

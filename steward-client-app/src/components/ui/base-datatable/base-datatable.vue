@@ -2,32 +2,13 @@
 import { ref, unref, reactive, computed } from "vue";
 import { useScroll } from "@vueuse/core";
 import type { TDatatableOptions } from "./datatable";
+import { isChromium } from "../../../utilities/function.util";
 
 import { useDatatable, dtDefaulOptions } from "./datatable.composable";
 
 const props = defineProps<{
   options: TDatatableOptions;
 }>();
-
-const _defaultOptions: TDatatableOptions = {
-  data: props.options.data,
-  pagination: false,
-  layout: {
-    height: undefined,
-  },
-  textPlaceholder: {
-    noRecords: "No records found",
-    pagination: {
-      first: "First",
-      prev: "Previous",
-      next: "Next",
-      last: "Last",
-      select: "Select page size",
-    },
-    pageInfo: "Showing {{start}} - {{end}} of {{total}} records",
-  },
-  columns: props.options.columns,
-};
 
 const { dtOptions, paging, goToPage, dtState } = useDatatable(props.options);
 
@@ -66,7 +47,12 @@ const tableScrollLeft = computed(() => {
 
 <template>
   <div class="datatable">
-    <table class="table d-block">
+    <table
+      class="table d-block"
+      :class="{
+        'native-scroll-chrome': isChromium(),
+      }"
+    >
       <BaseDatatableTableHead
         ref="elTableHead"
         :columns="scrollableColumns"
@@ -238,10 +224,15 @@ $datatable-scroll-y-width: $scrollbar-thumb-size;
     }
 
     > tbody {
-      // display: none;
       //TODO: native scrollbar vs perfect scrollbar
-      // display: none;
       @include mix-scrollbar();
+    }
+
+    &.native-scroll-chrome {
+      > thead,
+      > tfoot {
+        padding-right: $datatable-scroll-x-width;
+      }
     }
   }
 

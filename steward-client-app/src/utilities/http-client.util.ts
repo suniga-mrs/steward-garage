@@ -9,17 +9,17 @@ interface IHttpClientOptions {
     timeout?: number,
 }
 
-type THttpClientSuccessResponse = {
-    data: any,
-}
+// type THttpClientSuccessResponse = {
+//     data: any,
+// }
 
-type THttpClientErrorResponse = Record<any, any>;
+// type THttpClientErrorResponse = Record<any, any>;
 
-type THttpResponse = THttpClientSuccessResponse | THttpClientErrorResponse;
+// type THttpResponse = THttpClientSuccessResponse | THttpClientErrorResponse;
 
 interface IHttpGetOptions {
     url: string,
-    query?: Record<string, any>,
+    data?: Record<string, any>,
     headers?: Record<string, string>,
 }
 
@@ -34,17 +34,17 @@ interface IHttpPutOptions extends IHttpPostOptions { }
 
 interface IHttpClient {
     //public methods
-    get: (options: IHttpGetOptions) => THttpResponse
+    get: (options: IHttpGetOptions) => any
 
-    post: (options: IHttpPostOptions) => THttpResponse
+    post: (options: IHttpPostOptions) => any
 
-    delete: (options: IHttpDeleteOptions) => THttpResponse
+    delete: (options: IHttpDeleteOptions) => any
 
-    put: (options: IHttpPutOptions) => THttpResponse
+    put: (options: IHttpPutOptions) => any
 
 }
 
-function HttpClient(options: IHttpClientOptions): IHttpClient {
+function useHttpClient(options: IHttpClientOptions): IHttpClient {
 
     const _defaults: IHttpClientOptions = {
         timeout: 30000,
@@ -140,17 +140,13 @@ function HttpClient(options: IHttpClientOptions): IHttpClient {
 
         return _httpClient.get(options.url, {
             headers: options.headers,
-            params: options.query
+            params: options.data
         });
 
     }
 
     function $post(options: IHttpPostOptions) {
-
-        return _httpClient.get(options.url, {
-            headers: options.headers,
-            data: options.data
-        });
+        return _httpClient.post(options.url, options.data);
 
     }
 
@@ -180,4 +176,4 @@ function HttpClient(options: IHttpClientOptions): IHttpClient {
     }
 }
 
-export default HttpClient;
+export default useHttpClient;

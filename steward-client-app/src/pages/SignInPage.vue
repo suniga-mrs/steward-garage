@@ -131,8 +131,24 @@ const data: Record<string, any>[] | OrderLedgerItem[] = JSON.parse(
 
 const dtOptions: TDatatableOptions = {
   data: {
-    type: "local",
-    source: data,
+    // type: "local",
+    // source: data,
+
+    type: "remote",
+    source: {
+      url:
+        "https://preview.keenthemes.com/keen/theme/tools/preview/api/datatables/demos/default.php",
+      params: {},
+      method: "POST",
+      pagingMap(page, perPage) {
+        return {
+          pagination: {
+            page,
+            perpage: perPage,
+          },
+        };
+      },
+    },
   },
   scrollable: true,
   layout: {
