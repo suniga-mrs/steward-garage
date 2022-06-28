@@ -182,18 +182,18 @@ export function useDatatable(options: TDatatableOptions) {
     }
   }
 
-  async function setInitialRemoteData() {
+  // async function setInitialRemoteData() {
 
-    //create paging 
-    setPaging({ page: 1, perPage: dtOptions.layout?.pagination?.pageSize });
+  //   //create paging 
+  //   setPaging({ page: 1, perPage: dtOptions.layout?.pagination?.pageSize });
 
-    dtState.API.url = dtOptions.data.source?.url || "";
-    setDataSourceQuery(dtOptions.data.source?.params)
+  //   dtState.API.url = dtOptions.data.source?.url || "";
+  //   setDataSourceQuery(dtOptions.data.source?.params)
 
 
 
-    getRemoteData();
-  }
+  //   getRemoteData();
+  // }
 
   function updateLocalData() {
     const start = Math.max(paging.perPage * (paging.page - 1), 0);

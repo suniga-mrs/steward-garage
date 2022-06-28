@@ -3,7 +3,7 @@ import { ref, unref, reactive, computed } from "vue";
 import { useScroll } from "@vueuse/core";
 import type { TDatatableOptions } from "./datatable";
 
-import { useDatatable, dtDefaults } from "./datatable.composable";
+import { useDatatable, dtDefaulOptions } from "./datatable.composable";
 
 const props = defineProps<{
   options: TDatatableOptions;
@@ -121,7 +121,8 @@ const tableScrollLeft = computed(() => {
         >
           {{
             dtOptions?.textPlaceholder?.pagination?.first ||
-            dtDefaults.textPlaceholder.pagination.first
+            dtDefaulOptions?.textPlaceholder?.pagination?.first ||
+            ""
           }}
         </button>
         <button
@@ -132,7 +133,7 @@ const tableScrollLeft = computed(() => {
         >
           {{
             dtOptions?.textPlaceholder?.pagination?.prev ||
-            dtDefaults.textPlaceholder.pagination.prev
+            dtDefaulOptions?.textPlaceholder?.pagination?.prev
           }}
         </button>
         <button
@@ -155,7 +156,8 @@ const tableScrollLeft = computed(() => {
         >
           {{
             dtOptions?.textPlaceholder?.pagination?.next ||
-            dtDefaults.textPlaceholder.pagination.next
+            dtDefaulOptions?.textPlaceholder?.pagination?.next ||
+            ""
           }}
         </button>
         <button
@@ -166,7 +168,8 @@ const tableScrollLeft = computed(() => {
         >
           {{
             dtOptions?.textPlaceholder?.pagination?.last ||
-            dtDefaults.textPlaceholder.pagination.last
+            dtDefaulOptions?.textPlaceholder?.pagination?.last ||
+            ""
           }}
         </button>
       </div>

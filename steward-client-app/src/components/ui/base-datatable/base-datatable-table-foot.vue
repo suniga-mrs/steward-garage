@@ -1,6 +1,7 @@
-dtDefaulOptions<script lang="ts" setup>
-import type { TDatatableColumnItem } from './datatable';
-import { dtDefaulOptions, dtClasses } from './datatable.composable';
+dtDefaulOptions
+<script lang="ts" setup>
+import type { TDatatableColumnItem } from "./datatable";
+import { dtDefaulOptions, dtClasses } from "./datatable.composable";
 
 defineProps<{
   columns: TDatatableColumnItem[];
@@ -22,7 +23,7 @@ defineProps<{
         <div
           class="cell-inner-wrapper"
           :style="{
-            width: column.width ?? dtDefaulOptions.layout.cellWidth,
+            width: column.width ?? dtDefaulOptions?.layout?.cellWidth,
           }"
         >
           <component
