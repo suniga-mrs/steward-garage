@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TDatatableOptions } from '../components/ui/base-datatable/datatable';
+import type { TDatatableOptions } from "../components/ui/base-datatable/datatable";
 
 export interface OrderLedgerItem {
   CompanyAgent: string;
@@ -131,47 +131,47 @@ const data: Record<string, any>[] | OrderLedgerItem[] = JSON.parse(
 
 const dtOptions: TDatatableOptions = {
   data: {
-    type: 'local',
+    type: "local",
     source: data,
   },
   scrollable: true,
   layout: {
-    height: '300px',
+    height: "300px",
     pagination: {
-      pageSize: 50,
-      pageButtonsNumber: 3,
+      pageSize: 10,
+      pageButtonsNumber: 5,
     },
   },
   columns: [
     {
-      field: 'RecordID',
-      title: '#',
+      field: "RecordID",
+      title: "#",
       // sortable: false,
-      width: '20px',
+      width: "20px",
       // type: 'number',
       // selector: {
       //     class: '',
       // },
-      textAlign: 'center',
+      textAlign: "center",
     },
     {
-      field: 'OrderID',
-      title: 'Order ID',
+      field: "OrderID",
+      title: "Order ID",
     },
     {
-      field: 'Country',
-      title: 'Country',
+      field: "Country",
+      title: "Country",
     },
     {
-      field: 'ShipDate',
-      title: 'Ship Date',
+      field: "ShipDate",
+      title: "Ship Date",
       // type: 'date',
       // format: 'MM/DD/YYYY',
     },
     {
-      field: 'CompanyName',
-      title: 'Company Name',
-      width: '300px',
+      field: "CompanyName",
+      title: "Company Name",
+      width: "300px",
     },
   ],
 };
@@ -187,7 +187,7 @@ const dtOptions: TDatatableOptions = {
   <!-- <div id="box" ref="elBox" class=" mb-4">Hello</div> -->
 
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-10">
       <!-- <ResizeTable></ResizeTable> -->
       <BaseDatatable :options="dtOptions">
         <template #body-cell-studentName="{ rowData }">

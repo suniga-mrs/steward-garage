@@ -1,6 +1,7 @@
 import type { Component } from 'vue';
 
 export type TUnitPixels = `${number}px`;
+export type TUnitPercent = `${number}%`;
 export type TUnitVH = `${number}vh`;
 export type TUnitVW = `${number}vw`;
 export type TData = Record<string, any>;
@@ -16,12 +17,14 @@ export interface TDatatableDataRemoteOption {
     url: string;
     param?: any | never;
     uniqueKey?: any;
+    map?: (rawData: any) => any[]
   };
 }
 
 export interface TDatatableLayoutOption {
-  height?: TUnitPixels | never;
-  minHeight?: TUnitPixels | never;
+  cellWidth?: TUnitPixels,
+  height?: TUnitPixels | TUnitPercent | TUnitVH;
+  minHeight?: TUnitPixels | TUnitPercent | TUnitVH;
   header?: boolean;
   footer?: boolean;
   icons?: {

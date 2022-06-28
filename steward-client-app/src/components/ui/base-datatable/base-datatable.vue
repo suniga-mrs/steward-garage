@@ -2,7 +2,7 @@
 import { ref, unref, reactive, computed } from "vue";
 import { useScroll } from "@vueuse/core";
 import type { TDatatableOptions } from "./datatable";
-import { merge } from "../../../utilities/function.util";
+
 import { useDatatable, dtDefaults } from "./datatable.composable";
 
 const props = defineProps<{
@@ -29,14 +29,11 @@ const _defaultOptions: TDatatableOptions = {
   columns: props.options.columns,
 };
 
-const _mergeOptions = reactive(merge(unref(_defaultOptions), props.options));
-
-const { dtOptions, paging, goToPage, dtState } = useDatatable(_mergeOptions);
+const { dtOptions, paging, goToPage, dtState } = useDatatable(props.options);
 
 // const dataSet = computed(() => {
 //     if (props.options.data.type == 'local')
 //         return props.options.data.source
-
 //         return [];
 // });
 
@@ -69,7 +66,7 @@ const tableScrollLeft = computed(() => {
 
 <template>
   <div class="datatable">
-    <table class="table">
+    <table class="table d-block">
       <BaseDatatableTableHead
         ref="elTableHead"
         :columns="scrollableColumns"
@@ -114,42 +111,68 @@ const tableScrollLeft = computed(() => {
         </template>
       </BaseDatatableTableFoot>
     </table>
-    <div>
-      <button type="button" @click="goToPage(1)">
-        {{
-          dtOptions?.textPlaceholder?.pagination?.first ||
-          dtDefaults.textPlaceholder.pagination.first
-        }}
-      </button>
-      <button type="button" @click="goToPage(paging.page - 1)">
-        {{
-          dtOptions?.textPlaceholder?.pagination?.prev ||
-          dtDefaults.textPlaceholder.pagination.prev
-        }}
-      </button>
-      <button
-        v-for="page in paging.pageNumbers"
-        :key="page"
-        type="button"
-        @click="goToPage(page)"
-      >
-        {{ page }}
-      </button>
-      <button type="button" @click="goToPage(paging.page + 1)">
-        {{
-          dtOptions?.textPlaceholder?.pagination?.next ||
-          dtDefaults.textPlaceholder.pagination.next
-        }}
-      </button>
-      <button type="button" @click="goToPage(paging.pages)">
-        {{
-          dtOptions?.textPlaceholder?.pagination?.last ||
-          dtDefaults.textPlaceholder.pagination.last
-        }}
-      </button>
-    </div>
-    <div>
-      {{ paging.pageInfo }}
+    <div class="datatable-paging-controls">
+      <div class="btn-group">
+        <button
+          class="btn btn-sm btn-secondary"
+          type="button"
+          @click="goToPage(1)"
+          :disabled="paging.page <= 1"
+        >
+          {{
+            dtOptions?.textPlaceholder?.pagination?.first ||
+            dtDefaults.textPlaceholder.pagination.first
+          }}
+        </button>
+        <button
+          class="btn btn-sm btn-secondary"
+          type="button"
+          @click="goToPage(paging.page - 1)"
+          :disabled="paging.page <= 1"
+        >
+          {{
+            dtOptions?.textPlaceholder?.pagination?.prev ||
+            dtDefaults.textPlaceholder.pagination.prev
+          }}
+        </button>
+        <button
+          class="btn btn-sm btn-secondary"
+          v-for="page in paging.pageNumbers"
+          :key="page"
+          :class="{
+            active: paging.page == page,
+          }"
+          type="button"
+          @click="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+        <button
+          class="btn btn-sm btn-secondary"
+          type="button"
+          @click="goToPage(paging.page + 1)"
+          :disabled="paging.page >= paging.pages"
+        >
+          {{
+            dtOptions?.textPlaceholder?.pagination?.next ||
+            dtDefaults.textPlaceholder.pagination.next
+          }}
+        </button>
+        <button
+          class="btn btn-sm btn-secondary"
+          type="button"
+          @click="goToPage(paging.pages)"
+          :disabled="paging.page >= paging.pages"
+        >
+          {{
+            dtOptions?.textPlaceholder?.pagination?.last ||
+            dtDefaults.textPlaceholder.pagination.last
+          }}
+        </button>
+      </div>
+      <div>
+        {{ paging.pageInfo }}
+      </div>
     </div>
   </div>
 </template>
@@ -167,6 +190,7 @@ $datatable-scroll-y-width: $scrollbar-thumb-size;
 .datatable {
   display: flex;
   position: relative;
+  flex-direction: column;
   table {
     overflow: hidden;
     width: 100%;
@@ -249,6 +273,11 @@ $datatable-scroll-y-width: $scrollbar-thumb-size;
     .cell-align-right {
       text-align: right;
     }
+  }
+
+  .datatable-paging-controls {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

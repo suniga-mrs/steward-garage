@@ -1,11 +1,11 @@
-<script lang="ts" setup>
+dtDefaulOptions<script lang="ts" setup>
 import { initial } from 'lodash';
 import type {
   TDatatableColumnItem,
   TData,
   TDatatableOptions,
 } from './datatable';
-import { dtDefaults, dtClasses } from './datatable.composable';
+import { dtDefaulOptions, dtClasses } from './datatable.composable';
 
 const props = defineProps<{
   columns: TDatatableColumnItem[];
@@ -14,8 +14,8 @@ const props = defineProps<{
 }>();
 
 const bodyStyle = {
-  maxHeight: props.dtOptions.layout?.height || dtDefaults.layout.height,
-  minHeight: props.dtOptions.layout?.minHeight || dtDefaults.layout.minHeight,
+  maxHeight: props.dtOptions.layout?.height || dtDefaulOptions.layout.height,
+  minHeight: props.dtOptions.layout?.minHeight || dtDefaulOptions.layout.minHeight,
   overflow: props.dtOptions?.scrollable ? 'auto' : 'hidden',
 };
 </script>
@@ -35,7 +35,7 @@ const bodyStyle = {
         <div
           class="cell-inner-wrapper"
           :style="{
-            width: column.width ?? dtDefaults.layout.cellWidth,
+            width: column.width ?? dtDefaulOptions.layout.cellWidth,
           }"
         >
           <component

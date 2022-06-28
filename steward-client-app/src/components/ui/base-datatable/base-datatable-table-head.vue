@@ -1,7 +1,7 @@
-<script lang="ts" setup>
+dtDefaulOptions<script lang="ts" setup>
 import { ref } from 'vue';
 import type { TDatatableColumnItem } from './datatable';
-import { dtDefaults, dtClasses } from './datatable.composable';
+import { dtDefaulOptions, dtClasses } from './datatable.composable';
 // import { useResizeObserver } from '@vueuse/core';
 
 // const elCells = ref<HTMLElement | undefined>();
@@ -38,7 +38,7 @@ defineProps<{
           ref="elCells"
           class="cell-inner-wrapper"
           :style="{
-            width: column.width ?? dtDefaults.layout.cellWidth,
+            width: column.width ?? dtDefaulOptions.layout.cellWidth,
           }"
         >
           <component
