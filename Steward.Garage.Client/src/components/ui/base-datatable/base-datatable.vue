@@ -10,7 +10,15 @@ const props = defineProps<{
   options: TDatatableOptions;
 }>();
 
-const { dtOptions, paging, goToPage, dtState } = useDatatable(props.options);
+const {
+  dtOptions,
+  paging,
+  goToPage,
+  dtState,
+  reload,
+  setDataSourceQuery,
+  filterRemoteData,
+} = useDatatable(props.options);
 
 // const dataSet = computed(() => {
 //     if (props.options.data.type == 'local')
@@ -46,14 +54,16 @@ const tableScrollLeft = computed(() => {
 </script>
 
 <template>
-  <div class="datatable">
+  <div class="datatable w-100 px-3 pb-3 rounded-3">
     <table
-      class="table d-block"
+      class="table w-100 mb-4"
       :class="{
         'native-scroll-chrome': isChromium(),
       }"
     >
+      <!-- begin:: Table Head -->
       <BaseDatatableTableHead
+        v-if="dtOptions.layout?.header"
         ref="elTableHead"
         :columns="scrollableColumns"
         :style="{
@@ -67,22 +77,45 @@ const tableScrollLeft = computed(() => {
           ></slot>
         </template>
       </BaseDatatableTableHead>
-      <BaseDatatableTableBody
-        ref="elTableBody"
-        :columns="scrollableColumns"
-        :data="dtState.dataSet"
-        :dt-options="dtOptions"
-      >
-        <template #cell="{ columnData, rowData }">
-          <slot
-            :name="'body-cell-' + columnData.field"
-            :column-data="columnData"
-            :row-data="rowData"
-          >
-          </slot>
-        </template>
-      </BaseDatatableTableBody>
+      <!-- end:: Table Head -->
+
+      <!-- begin:: Table Body -->
+      <template v-if="dtState.loadingData">
+        <div
+          class="d-flex justify-content-center align-items-center py-5"
+          :style="{
+            maxHeight: dtOptions.layout?.height,
+            minHeight: dtOptions.layout?.minHeight,
+          }"
+        >
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+      </template>
+      <template v-else>
+        <BaseDatatableTableBody
+          ref="elTableBody"
+          :columns="scrollableColumns"
+          :data="dtState.dataSet"
+          :dt-options="dtOptions"
+          :loading-data="dtState.loadingData"
+        >
+          <template #cell="{ columnData, rowData }">
+            <slot
+              :name="'body-cell-' + columnData.field"
+              :column-data="columnData"
+              :row-data="rowData"
+            >
+            </slot>
+          </template>
+        </BaseDatatableTableBody>
+      </template>
+      <!-- end:: Table Body -->
+
+      <!-- begin:: Table Foot -->
       <BaseDatatableTableFoot
+        v-if="dtOptions.layout?.footer"
         ref="elTableFooter"
         :columns="scrollableColumns"
         :style="{
@@ -96,73 +129,44 @@ const tableScrollLeft = computed(() => {
           ></slot>
         </template>
       </BaseDatatableTableFoot>
+      <!-- end:: Table Foot -->
     </table>
-    <div class="datatable-paging-controls">
-      <div class="btn-group">
-        <button
-          class="btn btn-sm btn-secondary"
-          type="button"
-          @click="goToPage(1)"
-          :disabled="paging.page <= 1"
-        >
-          {{
-            dtOptions?.textPlaceholder?.pagination?.first ||
-            dtDefaulOptions?.textPlaceholder?.pagination?.first ||
-            ""
-          }}
-        </button>
-        <button
-          class="btn btn-sm btn-secondary"
-          type="button"
-          @click="goToPage(paging.page - 1)"
-          :disabled="paging.page <= 1"
-        >
-          {{
-            dtOptions?.textPlaceholder?.pagination?.prev ||
-            dtDefaulOptions?.textPlaceholder?.pagination?.prev
-          }}
-        </button>
-        <button
-          class="btn btn-sm btn-secondary"
-          v-for="page in paging.pageNumbers"
-          :key="page"
-          :class="{
-            active: paging.page == page,
-          }"
-          type="button"
-          @click="goToPage(page)"
-        >
-          {{ page }}
-        </button>
-        <button
-          class="btn btn-sm btn-secondary"
-          type="button"
-          @click="goToPage(paging.page + 1)"
-          :disabled="paging.page >= paging.pages"
-        >
-          {{
-            dtOptions?.textPlaceholder?.pagination?.next ||
-            dtDefaulOptions?.textPlaceholder?.pagination?.next ||
-            ""
-          }}
-        </button>
-        <button
-          class="btn btn-sm btn-secondary"
-          type="button"
-          @click="goToPage(paging.pages)"
-          :disabled="paging.page >= paging.pages"
-        >
-          {{
-            dtOptions?.textPlaceholder?.pagination?.last ||
-            dtDefaulOptions?.textPlaceholder?.pagination?.last ||
-            ""
-          }}
-        </button>
-      </div>
-      <div>
-        {{ paging.pageInfo }}
+
+    <!-- begin:: Pagination -->
+    <div
+      v-if="
+        dtOptions.pagination && dtState.originalDataSet.length > 0 && !dtState.loadingData
+      "
+      class="datatable-paging"
+    >
+      <!-- <BasePagination
+        class="datatable-paging-controls"
+        :page="paging.page"
+        :pages="paging.pages"
+        :per-page="paging.perPage"
+        :total="paging.total"
+        :page-numbers="dtOptions.layout?.pagination?.pageButtonsNumber || 5"
+        :text-placeholders="{
+          first: dtOptions.textPlaceholder?.pagination?.first || 'First',
+          prev: dtOptions.textPlaceholder?.pagination?.prev || 'Prev',
+          next: dtOptions.textPlaceholder?.pagination?.next || 'Next',
+          last: dtOptions.textPlaceholder?.pagination?.last || 'Last',
+        }"
+        size="sm"
+        @go-to-page="goToPage"
+      >
+      </BasePagination> -->
+      <div class="datatable-paging-info">
+        <!-- <BaseSelect
+          v-model="paging.perPage"
+          class="datatable-paging-perpage"
+          :options="[10, 20, 50]"
+          :clearable="false"
+        ></BaseSelect> -->
+        <span class="datatable-paging-summary">{{ paging.pageInfo }}</span>
       </div>
     </div>
+    <!-- End:: Pagination -->
   </div>
 </template>
 

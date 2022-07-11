@@ -83,7 +83,7 @@ const NavigationMenu: TNavigationItem[] = [
       },
       {
         name: 'maintenance-logs',
-        route: '/maintenance-logs',
+        route: 'maintenance-logs',
         title: 'Maintenance Logs',
         placement: ['sidebar'],
         layout: LayoutTopHeaderWithSidebar,
@@ -91,7 +91,7 @@ const NavigationMenu: TNavigationItem[] = [
       },
       {
         name: 'odometer-logs',
-        route: '/odometer-logs',
+        route: 'odometer-logs',
         title: 'Odometer Logs',
         placement: ['sidebar'],
         layout: LayoutTopHeaderWithSidebar,
@@ -99,7 +99,7 @@ const NavigationMenu: TNavigationItem[] = [
       },
       {
         name: 'trip-logs',
-        route: '/trip-logs',
+        route: 'trip-logs',
         title: 'Trip Logs',
         placement: ['sidebar'],
         layout: LayoutTopHeaderWithSidebar,
@@ -107,7 +107,7 @@ const NavigationMenu: TNavigationItem[] = [
       },
       {
         name: 'incident-logs',
-        route: '/incident-report',
+        route: 'incident-report',
         title: 'Incident Reports',
         placement: ['sidebar'],
         layout: LayoutTopHeaderWithSidebar,

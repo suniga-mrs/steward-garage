@@ -8,6 +8,17 @@ import AutoImport from 'unplugin-auto-import/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+      port: 4010,
+      proxy: {
+        '/api': {
+          target: {
+            host: 'localhost',
+            port: 7005,
+          },
+        },
+      },
+    },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

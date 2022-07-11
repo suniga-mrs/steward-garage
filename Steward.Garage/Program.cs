@@ -14,16 +14,12 @@ namespace Steward.Garage
             var configuration = builder.Configuration;
             var services = builder.Services;
 
+            services.AddHttpContextAccessor();
+
             // Add services to the container.
             services.AddApplication(configuration);
             services.AddInfrastructure(configuration);
-
-            // Presentation services
-
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
-            services.AddHttpContextAccessor();
-
-            // End 
 
             services.AddCors(); 
 
@@ -54,6 +50,8 @@ namespace Steward.Garage
                    .AllowAnyHeader());
 
             }
+
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 

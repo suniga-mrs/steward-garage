@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Steward.Garage.Application.Modules.DataReferences.Interfaces;
 using Steward.Garage.Application.Modules.DataReferences.Services;
@@ -8,7 +9,6 @@ using Steward.Garage.Application.Modules.Vehicles.Interfaces;
 using Steward.Garage.Application.Modules.Vehicles.Services;
 using Steward.Garage.Application.Shared.Interfaces;
 using Steward.Garage.Application.Shared.Mappings;
-using Steward.Garage.Application.Shared.Services;
 using Steward.Garage.Infrastructure.Services;
 using System.Reflection;
 
@@ -20,6 +20,11 @@ namespace Steward.Garage.Application
         {
 
             services.AddMappingConfiguration();
+            services.AddFluentValidation(options =>
+            {
+                options.AutomaticValidationEnabled = true;
+                options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            });
             //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 

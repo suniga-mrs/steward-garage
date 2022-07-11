@@ -17,8 +17,7 @@ namespace Steward.Garage.Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString(Settings.WheelboxDbConnection))
             );
 
-            services.AddScoped<IApplicationDbContext>
-                (provider => provider.GetRequiredService<ApplicationDbContext>());
+            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
             return services;
 

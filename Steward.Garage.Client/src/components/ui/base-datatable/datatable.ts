@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import type { Component } from 'vue';
 
 export type TUnitPixels = `${number}px`;
@@ -18,45 +19,48 @@ export interface TDatatableDataRemoteOption {
     method?: 'GET' | 'POST';
     params?: Record<string, any>;
     uniqueKey?: any;
-    pagingMap?: (page: number, perPage: number) => Record<string, any>,
-    mapApiReponse?: (rawData: any) => { data: any[], pagination: { page: number, total: number, perPage: number } }
+    pagingMap: (page: number, perPage: number) => Record<string, any>;
+    mapApiReponse: (rawData: any) => {
+      data: any[];
+      pagination: { page: number; total: number; perPage: number };
+    };
   };
 }
 
 export interface TDatatableLayoutOption {
-  cellWidth?: TUnitPixels,
+  cellWidth?: TUnitPixels;
   height?: TUnitPixels | TUnitPercent | TUnitVH;
   minHeight?: TUnitPixels | TUnitPercent | TUnitVH;
   header?: boolean;
   footer?: boolean;
   icons?: {
     sort?:
-    | {
-      asc?: string | never;
-      desc?: string | never;
-    }
-    | never;
+      | {
+          asc?: string | never;
+          desc?: string | never;
+        }
+      | never;
     pagination?:
-    | {
-      next?: string | never;
-      prev?: string | never;
-      first?: string | never;
-      last?: string | never;
-    }
-    | never;
+      | {
+          next?: string | never;
+          prev?: string | never;
+          first?: string | never;
+          last?: string | never;
+        }
+      | never;
     rowDetail?:
-    | {
-      expand?: string | never;
-      collapse?: string | never;
-    }
-    | never;
+      | {
+          expand?: string | never;
+          collapse?: string | never;
+        }
+      | never;
   };
   pagination?:
-  | {
-    pageSize?: number | never;
-    pageButtonsNumber?: number | never;
-  }
-  | never;
+    | {
+        pageSize?: number | never;
+        pageButtonsNumber?: number | never;
+      }
+    | never;
 }
 
 export type TColumnTemplate = (rowData: any) => Component;
@@ -79,18 +83,18 @@ export interface TDatatableOptions {
   layout?: TDatatableLayoutOption | never;
   columns: TDatatableColumnItem[];
   textPlaceholder?:
-  | {
-    noRecords?: string;
-    pagination?:
     | {
-      first?: string | never;
-      prev?: string | never;
-      next?: string | never;
-      last?: string | never;
-      select?: string | never;
-    }
+        noRecords?: string;
+        pagination?:
+          | {
+              first?: string | never;
+              prev?: string | never;
+              next?: string | never;
+              last?: string | never;
+              select?: string | never;
+            }
+          | never;
+        pageInfo?: string | never;
+      }
     | never;
-    pageInfo?: string | never;
-  }
-  | never;
 }

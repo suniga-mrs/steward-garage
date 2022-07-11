@@ -39,6 +39,33 @@ body {
     }
 }
 
+.layout-topbar {
+    .content-wrapper {
+        padding-top: user_root_var('topbar-height');
+
+        .content {
+            height: calc(100vh - #{user_root_var('topbar-height')});
+        }
+    }
+}
+
+.topbar {
+    height: user_root_var('topbar-height');
+    background: user_root_var('topbar-bg');
+    transition: $layout-transition;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.topbar-brand {
+    width: user_root_var('topbar-brand-width');
+}
+
 @include media-breakpoint-up(sm) {
     .content {
         
