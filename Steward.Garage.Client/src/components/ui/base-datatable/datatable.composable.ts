@@ -1,6 +1,6 @@
 import type { TDatatableOptions, TData } from "./datatable";
 import { merge, cloneDeep } from "../../../utilities/function.util";
-import useHttpClient from "../../../utilities/http-client.util";
+import {useHttpClient} from "../../../utilities/http-client.util";
 
 export const dtDefaulOptions = readonly({
   data: {

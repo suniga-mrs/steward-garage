@@ -54,11 +54,11 @@ const tableScrollLeft = computed(() => {
 </script>
 
 <template>
-  <div class="datatable w-100 px-3 pb-3 rounded-3">
+  <div class="datatable w-100">
     <table
-      class="table w-100 mb-4"
+      class="table w-100 mb-3"
       :class="{
-        'native-scroll-chrome': isChromium(),
+        'native-scroll-chrome': isChromium() && dtOptions.scrollable,
       }"
     >
       <!-- begin:: Table Head -->
@@ -80,7 +80,7 @@ const tableScrollLeft = computed(() => {
       <!-- end:: Table Head -->
 
       <!-- begin:: Table Body -->
-      <template v-if="dtState.loadingData">
+      <!-- <template v-if="dtState.loadingData">
         <div
           class="d-flex justify-content-center align-items-center py-5"
           :style="{
@@ -92,25 +92,23 @@ const tableScrollLeft = computed(() => {
             <span class="visually-hidden"></span>
           </div>
         </div>
-      </template>
-      <template v-else>
-        <BaseDatatableTableBody
-          ref="elTableBody"
-          :columns="scrollableColumns"
-          :data="dtState.dataSet"
-          :dt-options="dtOptions"
-          :loading-data="dtState.loadingData"
-        >
-          <template #cell="{ columnData, rowData }">
-            <slot
-              :name="'body-cell-' + columnData.field"
-              :column-data="columnData"
-              :row-data="rowData"
-            >
-            </slot>
-          </template>
-        </BaseDatatableTableBody>
-      </template>
+      </template> -->
+      <BaseDatatableTableBody
+        ref="elTableBody"
+        :columns="scrollableColumns"
+        :data="dtState.dataSet"
+        :dt-options="dtOptions"
+        :loading-data="dtState.loadingData"
+      >
+        <template #cell="{ columnData, rowData }">
+          <slot
+            :name="'body-cell-' + columnData.field"
+            :column-data="columnData"
+            :row-data="rowData"
+          >
+          </slot>
+        </template>
+      </BaseDatatableTableBody>
       <!-- end:: Table Body -->
 
       <!-- begin:: Table Foot -->
@@ -134,12 +132,10 @@ const tableScrollLeft = computed(() => {
 
     <!-- begin:: Pagination -->
     <div
-      v-if="
-        dtOptions.pagination && dtState.originalDataSet.length > 0 && !dtState.loadingData
-      "
+      v-if="dtOptions.pagination && dtState.originalDataSet.length > 0"
       class="datatable-paging"
     >
-      <!-- <BasePagination
+      <BasePagination
         class="datatable-paging-controls"
         :page="paging.page"
         :pages="paging.pages"
@@ -155,7 +151,7 @@ const tableScrollLeft = computed(() => {
         size="sm"
         @go-to-page="goToPage"
       >
-      </BasePagination> -->
+      </BasePagination>
       <div class="datatable-paging-info">
         <!-- <BaseSelect
           v-model="paging.perPage"
@@ -173,12 +169,6 @@ const tableScrollLeft = computed(() => {
 <style lang="scss">
 @import "../../../assets/scss/variables";
 @import "../../../assets/scss/scrollbar";
-
-$datatable-cell-padding-x: 0.5rem;
-$datatable-cell-padding-y: 0.3rem;
-
-$datatable-scroll-x-width: $scrollbar-thumb-size;
-$datatable-scroll-y-width: $scrollbar-thumb-size;
 
 .datatable {
   display: flex;
@@ -276,6 +266,18 @@ $datatable-scroll-y-width: $scrollbar-thumb-size;
   .datatable-paging-controls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    .pagination {
+      margin-bottom: 0;
+    }
+  }
+
+  .datatable-paging {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // margin-top: 10px;
   }
 }
 </style>

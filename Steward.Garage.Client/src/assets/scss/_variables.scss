@@ -30,11 +30,11 @@ $content-bg: #F3F1EF !default;
 
 
 // $scrollbar-thumb-color:  
-$scrollbar-track-color: #ffffff  !default;
+$scrollbar-track-color: transparent !default;
 $scrollbar-thumb-color: rgba(223, 223, 223, 1)  !default;
 $scrollbar-thumb-color-hidden: rgba(223, 223, 223, 0)  !default;
 $scrollbar-thumb-color-hover: rgb(200, 200, 200)  !default;
-$scrollbar-thumb-size:  12px !default;
+$scrollbar-thumb-size:  8px !default;
 
 
 $font-family: 'Inter', Arial, Helvetica, sans-serif;
@@ -42,3 +42,12 @@ $font-family-alt: 'Open Sans', Arial, Helvetica, sans-serif;
 
 
 $font-family-base: $font-family;
+
+
+$card-border-color: transparent;
+
+$datatable-cell-padding-x: 0.5rem !default;
+$datatable-cell-padding-y: 0.3rem !default;
+
+$datatable-scroll-x-width: $scrollbar-thumb-size    !default;
+$datatable-scroll-y-width: $scrollbar-thumb-size    !default;

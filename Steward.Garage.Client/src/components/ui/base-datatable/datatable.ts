@@ -70,7 +70,7 @@ export interface TDatatableColumnItem {
   title: string;
   width?: TUnitPixels | never;
   textAlign?: 'center' | 'left' | 'right' | never;
-  template?: TColumnTemplate | never;
+  template?: TColumnTemplate | never | ((row: any) => string);
   templateHeader?: TColumnTemplate | never;
   templateFoot?: TColumnTemplate | never;
   lock?: 'left' | 'right';

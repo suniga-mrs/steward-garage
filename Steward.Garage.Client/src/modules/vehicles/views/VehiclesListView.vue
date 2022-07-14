@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { useRoute, RouterLink } from "vue-router";
+import { useRoute, useRouter, RouterLink } from "vue-router";
 import type { TDatatableOptions } from "../../../components/ui/base-datatable/datatable";
-const $route = useRoute();
+
+const $router = useRouter();
 
 const dtOptions: TDatatableOptions = {
   data: {
@@ -26,50 +27,90 @@ const dtOptions: TDatatableOptions = {
   scrollable: true,
   pagination: true,
   layout: {
-    height: "275px",
-    minHeight: "275px",
+    height: "480px",
+    minHeight: "480px",
     pagination: {
-      pageSize: 10,
+      pageSize: 20,
       pageButtonsNumber: 5,
     },
   },
   columns: [
     {
-      field: "vehicleId",
-      title: "Id",
+      field: "options",
+      title: "Options",
+      width: "80px",
     },
+    // {
+    //   field: "vehicleId",
+    //   title: "Id",
+    //   width: "70px",
+    //   template(row) {
+    //     return "#" + row.vehicleId;
+    //   },
+    // },
     {
       field: "make",
       title: "Make",
+      width: "160px",
+      template(row) {
+        return row.make.toUpperCase();
+      },
     },
     {
       field: "model",
       title: "Model",
+      width: "160px",
+      template(row) {
+        return row.model.toUpperCase();
+      },
     },
     {
       field: "year",
       title: "Year",
+      width: "100px",
     },
     {
       field: "plateNo",
       title: "Plate No.",
+      width: "150px",
+      template(row) {
+        return row.plateNo.toUpperCase();
+      },
     },
     {
       field: "chassisNo",
       title: "Chassis No.",
+      width: "250px",
     },
     {
       field: "engineNo",
       title: "Engine No.",
+      width: "250px",
     },
   ],
 };
 
-//Pass data to a state management
+const goToView = (data: any) => {
+  $router.push({
+    name: "vehicle-profile",
+    params: {
+      plateNo: data.plateNo.toUpperCase(),
+    },
+  });
+};
 </script>
 <template>
   <div class="container">
-    <BaseDatatable :options="dtOptions"></BaseDatatable>
+    <CardContainer>
+      <BaseDatatable :options="dtOptions">
+        <template #body-cell-options="{ rowData }">
+          <BaseButton theme="primary" size="sm" @click="goToView(rowData)">
+            View
+          </BaseButton>
+        </template>
+      </BaseDatatable>
+    </CardContainer>
+
     <!-- Vehicles List
     <RouterLink :to="{ name: 'vehicle-profile', params: { plateNo: 'sdsd' } }"
       >LINK</RouterLink

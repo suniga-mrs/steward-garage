@@ -8,6 +8,7 @@ namespace Steward.Garage.Application.Modules.Vehicles.CommandQuery
     public class GetVehicleProfileQuery : IRequest<VehicleDTO>
     {
         public int VehicleId { get; set; } = 0;
+        public string? PlateNo { get; set; } = string.Empty;
     }
 
     public class GetVehicleProfileQueryHandler : IRequestHandler<GetVehicleProfileQuery, VehicleDTO>
@@ -22,15 +23,36 @@ namespace Steward.Garage.Application.Modules.Vehicles.CommandQuery
         }
         public async Task<VehicleDTO> Handle(GetVehicleProfileQuery request, CancellationToken cancellationToken = default)
         {
-            var entity = await _context.Vehicles
+
+            //TODO : use with no lock
+
+            if (request.VehicleId != 0)
+            {
+                var entity = await _context.Vehicles
                  .FindAsync(new object[] { request.VehicleId }, cancellationToken);
 
-            if (entity == null)
+                if (entity == null)
+                {
+                    throw new KeyNotFoundException("Vehicle not found.");
+                }
+
+                return _mapper.Map<VehicleDTO>(entity);
+            }
+            else if (request.PlateNo != null)
             {
-                throw new KeyNotFoundException("Vehicle not found.");
+                var entity = _context.Vehicles
+                 .Where(v => v.PlateNo == request.PlateNo).FirstOrDefault();
+
+                if (entity == null)
+                {
+                    throw new KeyNotFoundException("Vehicle not found.");
+                }
+
+                return _mapper.Map<VehicleDTO>(entity);
             }
 
-            return _mapper.Map<VehicleDTO>(entity);
+
+            throw new ArgumentNullException("Please provide vehicle id or plate no.");
 
         }
     }

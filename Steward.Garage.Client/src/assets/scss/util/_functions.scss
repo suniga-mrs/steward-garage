@@ -1,0 +1,20 @@
+
+@import "../_variables.scss";
+
+
+@function get_inverse_black_or_white($color) {
+    $sum-rgb: (red($color) * 0.299)+(green($color) * 0.587)+(blue($color) * 0.114);
+    // @debug "inverse" color.lightness($complement);
+
+    @if $sum-rgb >170 {
+        @return #000;
+    }
+
+    @else {
+        @return #fff;
+    }
+}
+
+@function user_root_var($stringName) {
+    @return var(--#{$variable-prefix}#{$stringName});
+}

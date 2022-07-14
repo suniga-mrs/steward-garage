@@ -1,6 +1,9 @@
 //Custom variables
 @import '../variables';
 
+// Custom funcitons
+@import "../util/functions";
+
 // Utilities
 @import "../../../../node_modules/bootstrap/scss/functions";
 @import "../../../../node_modules/bootstrap/scss/variables";

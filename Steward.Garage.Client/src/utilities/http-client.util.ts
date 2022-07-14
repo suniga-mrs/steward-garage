@@ -34,7 +34,7 @@ export interface IHttpClient {
   // put: (options: IHttpPutOptions) => any;
 }
 
-function useHttpClient(options: IHttpClientOptions): IHttpClient {
+export function useHttpClient(options: IHttpClientOptions): IHttpClient {
   const _defaults: IHttpClientOptions = {
     timeout: 30000,
     baseUrl: '',
@@ -171,19 +171,11 @@ function useHttpClient(options: IHttpClientOptions): IHttpClient {
     // });
   }
 
-  // function $put(options: IHttpPutOptions) {
-  //   return _httpClient.put(options.url, {
-  //     headers: options.headers,
-  //     data: options.data,
-  //   });
-  // }
-
-  return {
+ return {
     get: $get,
     post: $post,
     delete: $delete,
     // put: $put,
   };
-}
 
-export default useHttpClient;
+}

@@ -1,5 +1,0 @@
-@import "../_variables.scss";
-
-@function user_root_var($stringName) {
-    @return var(--#{$variable-prefix}#{$stringName});
-}

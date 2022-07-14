@@ -1,6 +1,8 @@
-import { ref, reactive, type Ref, type ComputedRef } from 'vue';
+import { ref, reactive, type Ref, type ComputedRef, type Component, h } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 import NavMenuData from '../data/navigation-menu';
+import SidebarHeaderVehicleInfo from '@/modules/vehicles/components/sidebar-header-vehicle-info.vue';
+
 import type {
   INavigationItem,
   TNavigationItem,
@@ -10,9 +12,11 @@ import type {
 const currentNavMenuItem: Ref<TNavigationItem | null> = ref(null);
 const currParentNavMenuItem: Ref<TNavigationItem | null> = ref(null);
 const currChildrenNavMenu: Ref<TNavigationItem[]> = ref([]);
+const mainMenu: Record<string, TNavigationItem> = {};
+const sidebarHeaderComponent =  ref<Component | null>(null);
 
 export function useNavigationMenu() {
-  const mainMenu: Record<string, TNavigationItem> = {};
+
   for (const item of NavMenuData) {
     mainMenu[item.name] = item;
   }
@@ -86,13 +90,22 @@ export function useNavigationMenu() {
     }
   }
 
+  function setSidebarHeaderComponent(comp: Component | null) {
+    console.log(comp)
+    sidebarHeaderComponent.value = comp;
+  }
+
   return {
     currentNavMenuItem,
     currParentNavMenuItem,
     currChildrenNavMenu,
+
     getRoutes,
     getRouteByPlacement,
     setCurrentParentNavMenu,
     setCurrentChildrenNavMenu,
+    
+    sidebarHeaderComponent,
+    setSidebarHeaderComponent
   };
 }

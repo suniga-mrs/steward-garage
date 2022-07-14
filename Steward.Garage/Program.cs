@@ -51,9 +51,10 @@ namespace Steward.Garage
 
             }
 
+
             app.UseStaticFiles();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseMiddleware<ExceptionMiddleware>();
 

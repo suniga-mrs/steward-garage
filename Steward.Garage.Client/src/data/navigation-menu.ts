@@ -3,7 +3,6 @@ import {
   LayoutTopHeaderContentOnly,
   LayoutTopHeaderWithSidebar,
 } from '../components/layouts';
-import { defineAsyncComponent } from 'vue';
 import SignInPageVue from '../pages/SignInPage.vue';
 
 const NavigationMenu: TNavigationItem[] = [

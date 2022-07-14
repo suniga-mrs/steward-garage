@@ -13,7 +13,7 @@ const props = defineProps<{
 const bodyStyle = {
   maxHeight: props.dtOptions.layout?.height || dtDefaulOptions?.layout?.height,
   minHeight: props.dtOptions.layout?.minHeight || dtDefaulOptions?.layout?.minHeight,
-  overflow: props.dtOptions?.scrollable ? "auto" : "hidden",
+  overflow: props.dtOptions?.scrollable ? "scroll" : "hidden",
 };
 </script>
 
@@ -41,6 +41,9 @@ const bodyStyle = {
             :row-data="row"
           >
           </component>
+          <template v-else-if="typeof column.template == 'function'">
+            <div v-html="column.template(row)"></div>
+          </template>
           <slot v-else name="cell" :column-data="column" :row-data="row">
             {{ row[column.field] }}
           </slot>
